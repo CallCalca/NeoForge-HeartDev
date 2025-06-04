@@ -1,0 +1,19 @@
+
+# Rendering methods
+In the HealthBar class, the first thing to understand is **"how do i access the methods?"** To access the methods you need to use the _**HEALTH_INSTANCE**_ provided by the same class. Like this:
+
+```
+HealthBar.HEALTH_INSTANCE
+
+HealthBar.HEALTH_INSTANCE.<theMethod()>;
+```
+
+The first method that should be used, is **_shouldRenderHealthBar(...)_**. This controls whether the rendering event is the event that renders health: if you were to use the RenderGuiLayerEvent.Pre event exactly as it is, you would be going to take action on everything that is rendered in a player's screen. This method allows you to **access and modify only that particular instance that is responsible for rendering hearts**.
+So, this should be **the first method to be used** and should be used, within onRenderHealth(...) of the class first created, like this:
+
+```
+HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
+            //This is you workspace
+});
+//not this
+```

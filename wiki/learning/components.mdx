@@ -11,21 +11,12 @@ First, let's divide the available tools according to their task:
     This class should never be accessed directly, since all the variables can be overridden through the methods inside the _**HealthComponent**_ class.
 </Callout>
 
-### Rendering methods
-In the HealthBar class, the first thing to understand is **"how do i access the methods?"** To access the methods you need to use the _**HEALTH_INSTANCE**_ provided by the same class. Like this:
+Finally, let's talk about the last 2 classes not mentioned. The CustomContainerType and the CustomHeartType.
+This two classes are responsible for the creation of two different heart types: the containers amd the hearts. These two are different from the vanilla HeartType,
+since the HeartType enum cannot be accessed or overridden. This library then creates two new heart types (CustomContainerType, CustomHeartType) that all the methods
+in this library use.
+### Why creating two different heart types and not one?
+I decided to create two separate heart type to allow developers to easily organise their project, and to make it harder to mistakenly getting the wrong variables.
+In this way, the methods responsible for overriding the heart container texture only accept the CustomContainerType,
+while the ones responsible for the hearts textures only accept the CustomHeartType.
 
-```
-HealthBar.HEALTH_INSTANCE
-
-HealthBar.HEALTH_INSTANCE.<theMethod()>;
-```
-
-The first method that should be used, is **_shouldRenderHealthBar(...)_**. This controls whether the rendering event is the event that renders health: if you were to use the RenderGuiLayerEvent.Pre event exactly as it is, you would be going to take action on everything that is rendered in a player's screen. This method allows you to **access and modify only that particular instance that is responsible for rendering hearts**.
-So, this should be **the first method to be used** and should be used, within onRenderHealth(...) of the class first created, like this:
-
-```
-HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
-            //This is you workspace
-});
-//not this
-```
