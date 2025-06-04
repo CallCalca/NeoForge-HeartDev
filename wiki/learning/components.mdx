@@ -6,6 +6,11 @@ First, let's divide the available tools according to their task:
 - **Manipulation methods** : these methods, stored in the _**HealthComponent**_ class, provide access to textures and behaviors.
 - **Creation methods** : these methods can be found in the _**HealthTypes**_ class and allow the creation of new HeartTypes (containers with all the different states a heart can take, such as full, half, blinking, etc...).
 
+<Callout variant="warning">
+    There is another class not mentioned: the _**HealthBarVariables**_ class, witch contains all the variables the library on the rendering system. This class should never be accessed directly,
+    since all the variables can be overridden through the methods inside the _**HealthComponent**_ class.
+</Callout>
+
 ### Rendering methods
 In the HealthBar class, the first thing to understand is **"how do i access the methods?"** To access the methods you need to use the _**HEALTH_INSTANCE**_ provided by the same class. Like this:
 
