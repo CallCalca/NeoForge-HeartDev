@@ -24,10 +24,20 @@ public class ModClientEvents {
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
         /*
         HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
+            HealthBar.PreSets.PRESETS_ISTANCE.activateOrangeEffect();
+            HealthBar.PreSets.PRESETS_ISTANCE.activateYellowEffect();
+            HealthBar.PreSets.PRESETS_ISTANCE.activateMagentaEffect();
+            HealthBar.PreSets.PRESETS_ISTANCE.activateLightBlueEffect();
+            HealthBar.PreSets.PRESETS_ISTANCE.activateBlueEffect();
+            HealthBar.PreSets.PRESETS_ISTANCE.activateGreenEffect();
+            HealthBar.PreSets.PRESETS_ISTANCE.activatePurpleEffect();
+            HealthBar.HEALTH_INSTANCE.renderHealthBar(event, () -> {
 
+            });
         });
 
          */
+
     }
 
 }

@@ -28,6 +28,7 @@ public class HealthBar {
             LocalPlayer player = mc.player;
             assert player != null;
             if (!player.hasEffect(ModEffects.ORANGE_HEARTS)){
+                if (HealthBarVariables.HEARTS == HealthTypes.ModdedTextures.ORANGE_HEARTS) HealthBarVariables.HEARTS = null;
                 return;
             }
             HealthBarVariables.HEARTS = HealthTypes.ModdedTextures.ORANGE_HEARTS;
@@ -37,6 +38,7 @@ public class HealthBar {
             LocalPlayer player = mc.player;
             assert player != null;
             if (!player.hasEffect(ModEffects.YELLOW_HEARTS)){
+                if (HealthBarVariables.HEARTS == HealthTypes.ModdedTextures.YELLOW_HEARTS) HealthBarVariables.HEARTS = null;
                 return;
             }
             HealthBarVariables.HEARTS = HealthTypes.ModdedTextures.YELLOW_HEARTS;
@@ -45,6 +47,7 @@ public class HealthBar {
             LocalPlayer player = mc.player;
             assert player != null;
             if (!player.hasEffect(ModEffects.GREEN_HEARTS)){
+                if (HealthBarVariables.HEARTS == HealthTypes.ModdedTextures.GREEN_HEARTS) HealthBarVariables.HEARTS = null;
                 return;
             }
             HealthBarVariables.HEARTS = HealthTypes.ModdedTextures.GREEN_HEARTS;
@@ -53,6 +56,7 @@ public class HealthBar {
             LocalPlayer player = mc.player;
             assert player != null;
             if (!player.hasEffect(ModEffects.LIGHT_BLUE_HEARTS)){
+                if (HealthBarVariables.HEARTS == HealthTypes.ModdedTextures.LIGHT_BLUE_HEARTS) HealthBarVariables.HEARTS = null;
                 return;
             }
             HealthBarVariables.HEARTS = HealthTypes.ModdedTextures.LIGHT_BLUE_HEARTS;
@@ -61,6 +65,7 @@ public class HealthBar {
             LocalPlayer player = mc.player;
             assert player != null;
             if (!player.hasEffect(ModEffects.BLUE_HEARTS)){
+                if (HealthBarVariables.HEARTS == HealthTypes.ModdedTextures.BLUE_HEARTS) HealthBarVariables.HEARTS = null;
                 return;
             }
             HealthBarVariables.HEARTS = HealthTypes.ModdedTextures.BLUE_HEARTS;
@@ -69,6 +74,7 @@ public class HealthBar {
             LocalPlayer player = mc.player;
             assert player != null;
             if (!player.hasEffect(ModEffects.PURPLE_HEARTS)){
+                if (HealthBarVariables.HEARTS == HealthTypes.ModdedTextures.PURPLE_HEARTS) HealthBarVariables.HEARTS = null;
                 return;
             }
             HealthBarVariables.HEARTS = HealthTypes.ModdedTextures.PURPLE_HEARTS;
@@ -77,6 +83,7 @@ public class HealthBar {
             LocalPlayer player = mc.player;
             assert player != null;
             if (!player.hasEffect(ModEffects.MAGENTA_HEARTS)){
+                if (HealthBarVariables.HEARTS == HealthTypes.ModdedTextures.MAGENTA_HEARTS) HealthBarVariables.HEARTS = null;
                 return;
             }
             HealthBarVariables.HEARTS = HealthTypes.ModdedTextures.MAGENTA_HEARTS;
