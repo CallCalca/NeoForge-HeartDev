@@ -1,4 +1,9 @@
 {
-  "welcome": "Welcome",
-  "introduction.mdx": "Introduction"
+  "prerequisites": "Prerequisites",
+  "events.mdx": "Events",
+
+  "learning": "Understanding the library",
+  "components.mdx": "Components",
+
+  "setup": "Using the library"
 }
