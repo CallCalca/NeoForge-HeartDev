@@ -246,6 +246,9 @@ public class HealthBar {
         HealthBarVariables.FROZEN_HEARTS = null;
         HealthBarVariables.ABSORBING_HEARTS = null;
 
+        HealthBarVariables.regenAnimationSpeed = 1;
+        HealthBarVariables.regenAnimationCooldown = 15;
+        HealthBarVariables.regenAnimationYoffSet = -2;
     }
 
 

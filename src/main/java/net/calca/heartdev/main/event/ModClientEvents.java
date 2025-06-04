@@ -22,7 +22,7 @@ public class ModClientEvents {
 
     @SubscribeEvent
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
-/*
+
         HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
             HealthBar.PreSets.PRESETS_ISTANCE.activateOrangeEffect();
             HealthBar.PreSets.PRESETS_ISTANCE.activateYellowEffect();
@@ -35,8 +35,6 @@ public class ModClientEvents {
 
             });
         });
-
-        */
 
     }
 
