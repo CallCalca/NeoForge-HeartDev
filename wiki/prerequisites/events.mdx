@@ -4,29 +4,51 @@ This API exploits a Minecraft client side event to override the rendering of the
 
 So in your event class u sould have this kind of code:
 
-```
+<CodeTabs>
+
+```js !!tabs main.js
 @EventBusSubscriber(modid = YourMod.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value =  Dist.CLIENT)
 public class ModClientEvents {
 
 }
 ```
+
+```css !!tabs styles.css
+body {
+    margin: 0;
+    padding: 0;
+}
+```
+
+</CodeTabs>
+
 When you have this class working, you need to access the rendering event, writing something like this:
 
-```
+
+<CodeTabs>
+
+```js !!tabs main.js
     @SubscribeEvent
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
 
     }
 ```
 
-```java
-System.out.println("Hello World");
+```css !!tabs styles.css
+body {
+    margin: 0;
+    padding: 0;
+}
+```
 
+</CodeTabs>
 
 
 At the end you should have something like this:
 
-```
+<CodeTabs>
+
+```js !!tabs main.js
 @EventBusSubscriber(modid = YouMod.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value =  Dist.CLIENT)
 public class ModClientEvents {
 
@@ -37,3 +59,14 @@ public class ModClientEvents {
 
 }
 ```
+
+```css !!tabs styles.css
+body {
+    margin: 0;
+    padding: 0;
+}
+```
+
+</CodeTabs>
+
+At this point you can continue with the set up of the library.
