@@ -1,7 +1,6 @@
 {
   "id": "heartdev",
   "platforms": {
-    "curseforge": "heartdev",
-    "modrinth": "heartdev"
+    "curseforge": "heartdev"
   }
 }

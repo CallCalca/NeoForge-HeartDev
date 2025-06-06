@@ -1,0 +1,35 @@
+
+
+# HeartDev
+The API allows developers to easily access vanilla **health bar rendering systems**. It provides a wide range of tools to customize textures and behaviors, needing only a small setup.
+
+## Understanding the library
+Now that the event class has been successfully created, let's start using the tools this library provides.
+First, let's divide the available tools according to their task:
+- **Rendering methods** : all that is placed within the HealthBar class takes care of the rendering itself.
+- **Manipulation methods** : these methods are stored in the HealthComponent class, and they are the ones that provide access to textures and behaviors.
+- **Creation methods** : these methods can be found in the HealthTypes class and allow you to create new HeartTypes (containers with all the different states a heart can take, such as full, half, blinking, etc...).
+
+### Rendering methods
+In the HealthBar class, the first thing to understand is **"how do i access the methods?"** To access the methods you need to use the _**HEALTH_INSTANCE**_ provided by the same class. Like this:
+
+```
+HealthBar.HEALTH_INSTANCE
+
+HealthBar.HEALTH_INSTANCE.<theMethod()>;
+```
+
+The first method that should be used, is **_shouldRenderHealthBar(...)_**. This controls whether the rendering event is the event that renders health: if you were to use the RenderGuiLayerEvent.Pre event exactly as it is, you would be going to take action on everything that is rendered in a player's screen. This method allows you to **access and modify only that particular instance that is responsible for rendering hearts**.
+So, this should be **the first method to be used** and should be used, within onRenderHealth(...) of the class first created, like this:
+
+```
+HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
+            //This is you workspace
+});
+//not this
+```
+
+
+Work in progress...
+
+
