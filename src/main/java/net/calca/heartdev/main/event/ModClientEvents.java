@@ -8,6 +8,7 @@ import net.calca.heartdev.main.heart.render.HealthComponent;
 import net.calca.heartdev.main.heart.types.HealthTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.effect.MobEffects;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -22,19 +23,6 @@ public class ModClientEvents {
 
     @SubscribeEvent
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
-
-        HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
-            HealthBar.PreSets.PRESETS_ISTANCE.activateOrangeEffect();
-            HealthBar.PreSets.PRESETS_ISTANCE.activateYellowEffect();
-            HealthBar.PreSets.PRESETS_ISTANCE.activateMagentaEffect();
-            HealthBar.PreSets.PRESETS_ISTANCE.activateLightBlueEffect();
-            HealthBar.PreSets.PRESETS_ISTANCE.activateBlueEffect();
-            HealthBar.PreSets.PRESETS_ISTANCE.activateGreenEffect();
-            HealthBar.PreSets.PRESETS_ISTANCE.activatePurpleEffect();
-            HealthBar.HEALTH_INSTANCE.renderHealthBar(event, () -> {
-
-            });
-        });
 
     }
 

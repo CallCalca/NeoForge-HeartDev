@@ -8,6 +8,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
 public class HealthBarVariables {
+    public static boolean isHardcore;
+
     public static int startY;
     public static int startX;
     public static int spaceBetweenRows;

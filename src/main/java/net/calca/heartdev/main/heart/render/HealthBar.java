@@ -124,7 +124,7 @@ public class HealthBar {
             // === UNIVERSAL VARIABLES ===
             LocalPlayer player = mc.player;
             assert player != null;
-            boolean isHardcore = player.level().getLevelData().isHardcore();
+            HealthBarVariables.isHardcore = player.level().getLevelData().isHardcore();
 
             // Health and absorption
             int health = Mth.ceil(player.getHealth());
@@ -212,7 +212,7 @@ public class HealthBar {
 
                 boolean halfAbs = (maxAbsorption % 2) != 0 && j == absorbSlots - 1;
 
-                renderAbsorption(player, isHardcore, gfx, HealthBarVariables.startX, HealthBarVariables.startY, halfAbs);
+                renderAbsorption(player, HealthBarVariables.isHardcore, gfx, HealthBarVariables.startX, HealthBarVariables.startY, halfAbs);
 
             }
 
@@ -227,13 +227,13 @@ public class HealthBar {
 
 
                 // -- 3) RENDER BACKGROUND CUORI (vuoti + absorption) --
-                renderContainer(isHardcore, gfx, HealthBarVariables.startX, HealthBarVariables.startY, blinking, takingRegen);
+                renderContainer(HealthBarVariables.isHardcore, gfx, HealthBarVariables.startX, HealthBarVariables.startY, blinking, takingRegen);
 
                 // -- 4) RENDER BLINKING HEARTS (danno) --
-                renderBlinking(player, isHardcore, gfx, i, HealthBarVariables.startX, HealthBarVariables.startY, maxHealth, health, blinking, takingDamage);
+                renderBlinking(player, HealthBarVariables.isHardcore, gfx, i, HealthBarVariables.startX, HealthBarVariables.startY, maxHealth, health, blinking, takingDamage);
 
                 // -- 5) RENDER CUORI PIENI NORMALI --
-                renderHeart(player, isHardcore, gfx, i, HealthBarVariables.startX, HealthBarVariables.startY, fullHearts, half);
+                renderHeart(player, HealthBarVariables.isHardcore, gfx, i, HealthBarVariables.startX, HealthBarVariables.startY, fullHearts, half);
 
             }
                 fixArmors(rows, spacing);

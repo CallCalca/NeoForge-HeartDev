@@ -70,6 +70,15 @@ public class HealthComponent {
     public static void overrideFrozenHardcoreHalfHeartBlinkingHealing(ResourceLocation hardcoreHalfHeartBlinking){
         HealthBarVariables.hardcore_frozen_half_heart_blinking_healing = hardcoreHalfHeartBlinking;
     }
+    public static void overrideContainerHardcoreBlinkingHealing(ResourceLocation containerHardcoreBlinking){
+        HealthBarVariables.hardcore_container_blinking_healing = containerHardcoreBlinking;
+    }
+    public static void overrideFullHeartBlinkingHealing(ResourceLocation fullHeartBlinking){
+        HealthBarVariables.full_heart_blinking_damage = fullHeartBlinking;
+    }
+    public static void overrideContainerBlinkingHealing(ResourceLocation containerBlinking){
+        HealthBarVariables.container_blinking_healing = containerBlinking;
+    }
 
     */
     public static void overrideContainer(ResourceLocation container){
@@ -78,26 +87,17 @@ public class HealthComponent {
     public static void overrideContainerBlinkingDamage(ResourceLocation containerBlinking){
         HealthBarVariables.container_blinking_damage = containerBlinking;
     }
-    public static void overrideContainerBlinkingHealing(ResourceLocation containerBlinking){
-        HealthBarVariables.container_blinking_healing = containerBlinking;
-    }
     public static void overrideContainerHardcore(ResourceLocation containerHardcore){
         HealthBarVariables.hardcore_container = containerHardcore;
     }
     public static void overrideContainerHardcoreBlinkingDamage(ResourceLocation containerHardcoreBlinking){
         HealthBarVariables.hardcore_container_blinking_damage = containerHardcoreBlinking;
     }
-    public static void overrideContainerHardcoreBlinkingHealing(ResourceLocation containerHardcoreBlinking){
-        HealthBarVariables.hardcore_container_blinking_healing = containerHardcoreBlinking;
-    }
 
     public static void overrideFullHeart(ResourceLocation fullHeart){
         HealthBarVariables.full_heart = fullHeart;
     }
     public static void overrideFullHeartBlinkingDamage(ResourceLocation fullHeartBlinking){
-        HealthBarVariables.full_heart_blinking_damage = fullHeartBlinking;
-    }
-    public static void overrideFullHeartBlinkingHealing(ResourceLocation fullHeartBlinking){
         HealthBarVariables.full_heart_blinking_damage = fullHeartBlinking;
     }
     public static void overrideHalfHeart(ResourceLocation halfHeart){
@@ -208,11 +208,14 @@ public class HealthComponent {
     }
 
 
-    public static void setStartY(int startY){
+    public static void overrideStartY(int startY){
         HealthBarVariables.startY = startY;
     }
-    public static void setStartX(int startX){
+    public static void overrideStartX(int startX){
         HealthBarVariables.startX = startX;
+    }
+    public static void overrideIsHardcore(boolean isHardcore){
+        HealthBarVariables.isHardcore = isHardcore;
     }
     private static void setSpaceBetweenRows(int space){}
 
