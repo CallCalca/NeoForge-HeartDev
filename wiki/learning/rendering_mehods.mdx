@@ -2,9 +2,9 @@
 Rendering methods are responsible, as the name suggest, for rendering the health bar. Thiese are located inside the
 **HealthBar** class.
 
+## Accessing the methods
 ----
 
-## Accessing the methods
 The HealthBar class provides an instance that is used to access the methods. To access the methods, then
 you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise the methods won't appear, like this:
 
@@ -27,9 +27,9 @@ you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise 
 ```
 </CodeTabs>
 
-----
 
 ## When should my healthBar be overridden? **shouldRenderHealthBar(...)**
+----
 
 The first method to understand is **_shouldRenderHealthBar(...)_**. It controls whether the rendering event is actually
 rendering the health bar or not: if you were to use the RenderGuiLayerEvent.Pre event exactly as it is, you are
