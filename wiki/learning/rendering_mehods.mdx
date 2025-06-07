@@ -25,7 +25,7 @@ you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise 
 
 ```
 </CodeTabs>
-
+----
 ## When should my healthBar be overridden? **shouldRenderHealthBar(...)**
 
 The first method to understand is **_shouldRenderHealthBar(...)_**. It controls whether the rendering event is actually
@@ -51,4 +51,4 @@ HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
 
 As you can see this method provides a **livingEntity** instance that can be used to check all sort of thing **about a player**
 (does he has any effects? is he taking damage?...) and also allows to access the **level** using the same entity variable (livingEntity.level)
-#______________________________________________________________
+----
