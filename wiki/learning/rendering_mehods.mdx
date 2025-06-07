@@ -41,12 +41,15 @@ It is provided with a runnable component, allowing all other methods to be put i
 ```js !!tabs ModEvents.class (in your onRenderHealth() event)
 
 HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
-            //This is you workspace
-            //Where all other methods will be put
+            //Activating only if the event is rendering the hearts
+            //This is you workspace!
 });
-    //Not this
+    //Not this /!\
 
-    //Any methods called outside that control method will activated
+    //Any methods called outside the "control" method will activated
         //no metter if the event is rendering the health bar or not!
 ```
 </CodeTabs>
+
+As you can see this method provides a livingEntity instance that can be used to check all sort of thing **about a player**
+(does he has any effects? is he taking damage?...) and also allows to access the **level** using the same entity variable (livingEntity.level)
