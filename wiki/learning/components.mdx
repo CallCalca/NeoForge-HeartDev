@@ -14,11 +14,14 @@ First, let's divide the available tools according to their task:
 </Callout>
 
 Finally, let's talk about the last 2 classes not mentioned. The CustomContainerType and the CustomHeartType.
-This two classes are responsible for the creation of two different heart types: the containers amd the hearts. These two are different from the vanilla HeartType,
-since the HeartType enum cannot be accessed or overridden. This library then creates two new heart types (CustomContainerType, CustomHeartType) that all the methods
-in this library use.
+This two classes are responsible for the creation of two different heart types: the **containers** amd the **hearts**. These two are different from the
+vanilla HeartType, since the HeartType enum cannot be accessed or overridden. This library then creates two new heart types (CustomContainerType, CustomHeartType)
+that get used in all the methods this library use.
+
 ### Why creating two different heart types and not one?
-I decided to create two separate heart type to allow developers to easily organise their project, and to make it harder to mistakenly getting the wrong variables.
-In this way, the methods responsible for overriding the heart container texture only accept the CustomContainerType,
+
+The creator (me!) decided to create two separate heart type to allow developers to easily organise their project,
+and to make it harder to mistakenly using the wrong elements. This way, the methods responsible for overriding
+the heart container texture only accept the CustomContainerType,
 while the ones responsible for the hearts textures only accept the CustomHeartType.
 

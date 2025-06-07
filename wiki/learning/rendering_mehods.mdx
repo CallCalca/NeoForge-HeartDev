@@ -1,15 +1,40 @@
+---
+title: Rendering methods
+---
 
-# Rendering methods
-In the HealthBar class, the first thing to understand is **"how do i access the methods?"** To access the methods you need to use the _**HEALTH_INSTANCE**_ provided by the same class. Like this:
+Rendering methods are responsible, as the name suggest, for rendering the health bar. Thiese are located inside the
+**HealthBar** class.
+
+## Accessing the methods
+The HealthBar class provides an instance that is used to access the methods. To access the methods, then
+you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise the methods won't appear, like this:
+
+
+
+<CodeTabs>
+
+```js !!tabs ModEvents.class
+
+// use this --> HealthBar.HEALTH_INSTANCE
+
+    HealthBar.HEALTH_INSTANCE.method();
+```
+```js !!tabs ModEvents.class
+
+// DONT DO THIS /!\
+
+    HealthBar.method(); //It won't work!
 
 ```
-HealthBar.HEALTH_INSTANCE
 
-HealthBar.HEALTH_INSTANCE.<theMethod()>;
-```
+### When should my healthBar be overridden? **shouldRenderHealthBar(...)**
+</CodeTabs>
 
-The first method that should be used, is **_shouldRenderHealthBar(...)_**. This controls whether the rendering event is the event that renders health: if you were to use the RenderGuiLayerEvent.Pre event exactly as it is, you would be going to take action on everything that is rendered in a player's screen. This method allows you to **access and modify only that particular instance that is responsible for rendering hearts**.
-So, this should be **the first method to be used** and should be used, within onRenderHealth(...) of the class first created, like this:
+The first method to understand is **_shouldRenderHealthBar(...)_**. It controls whether the rendering event is actually
+rendering the health bar or not: if you were to use the RenderGuiLayerEvent.Pre event exactly as it is, you are
+taking action on everything that is rendered in a player's screen. This method allows you to access and modify
+only that **particular instance** that is responsible for rendering hearts. \n
+It is provided with a lamba, within which all other methods will be placed.
 
 ```
 HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
