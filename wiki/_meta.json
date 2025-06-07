@@ -6,7 +6,11 @@
 
   "events.mdx": "Events",
 
-  "learning": "Understanding the library",
+  "learning": {
+    "name": "Understanding the library",
+    "icon": "BookOpenText"
+  },
+
   "components.mdx": "Components",
   "rendering_methods.mdx": "Rendering methods",
 
