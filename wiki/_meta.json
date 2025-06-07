@@ -4,7 +4,10 @@
     "icon": "FileSliders"
   },
 
-  "events.mdx": "Events",
+  "events.mdx": {
+    "name": "Events",
+    "icon": "Sunset"
+  },
 
   "learning": {
     "name": "Understanding the library",
