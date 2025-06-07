@@ -100,7 +100,7 @@ public class HealthBar {
 
     public static final HealthBar HEALTH_INSTANCE = new HealthBar();
 
-    public void shouldRenderHealthBar(RenderGuiLayerEvent.Pre event, Consumer<LivingEntity> runnable){
+    public void shouldRenderHealthBar(RenderGuiLayerEvent.Pre event, Consumer<LivingEntity> render){
         if (event.isCanceled()
                 || mc.options.hideGui
                 || !Objects.requireNonNull(mc.gameMode).canHurtPlayer()
@@ -108,7 +108,7 @@ public class HealthBar {
                 || !(mc.getCameraEntity() instanceof LocalPlayer player)) {
             return;
         }
-        runnable.accept(player);
+        render.accept(player);
     }
 
     public void renderHealthBar(RenderGuiLayerEvent.Pre event){

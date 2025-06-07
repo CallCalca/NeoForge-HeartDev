@@ -31,7 +31,7 @@ you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise 
 </CodeTabs>
 
 
-## When should my healthBar be overridden? **shouldRenderHealthBar(...)**
+## When should my health bar be overridden? **shouldRenderHealthBar(...)**
 ----
 
 The first method to understand is **_shouldRenderHealthBar(...)_**. It controls whether the rendering event is actually
@@ -58,4 +58,25 @@ HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
 As you can see this method provides a **livingEntity** instance that can be used to check all sort of thing **about a player**
 (does he has any effects? is he taking damage?...) and also allows to access the **level** using the same entity variable (livingEntity.level)
 
+
+## How do I render my custom health bar? **renderHealthBar(...)**
 ----
+
+The renderHealthBar(...) method is responsible for the **overriding** and **rendering** of the health bar.
+It presents in two different ways, the first requiring only 1 parameter (being a RenderGuiLayerEvent.Pre one, so the "event"),
+and the other one requiring 2 parameter being the RenderGuiLayerEvent.Pre one, and another lambda expression.
+
+The lambda expression is necessary to literally override certain elements through the **manipulation methods**.
+
+<Callout variant="info">
+    To know more about **manipulation methods** check out the page explaining them (Manipulation methods).
+</Callout>
+
+
+<CodeTabs>
+```js !!tabs ModEvents.class (in your onRenderHealth() event)
+
+    HealthBar.HEALTH_INSTANCE.renderHealthBar(event);
+
+```
+</CodeTabs>
