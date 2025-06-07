@@ -1,7 +1,7 @@
 {
   "prerequisites": {
     "name": "Prerequisites",
-    "icon": "<SquirrelIcon width={64} height={64} strokeWidth={1.5} />"
+    "icon": "SquirrelIcon"
   },
 
   "events.mdx": "Events",
