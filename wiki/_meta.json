@@ -1,13 +1,10 @@
 {
   "prerequisites": {
     "name": "Prerequisites",
-    "icon": "FileSliders"
+    "icon": "Settings"
   },
 
-  "events.mdx": {
-    "name": "Events",
-    "icon": "FileSliders"
-  },
+  "events.mdx": "Events",
 
   "learning": {
     "name": "Understanding the library",
@@ -17,5 +14,9 @@
   "components.mdx": "Components",
   "rendering_methods.mdx": "Rendering methods",
 
-  "setup": "Using the library"
+  "setup":{
+    "name" : "Using the library",
+    "icon" : "FileSliders"
+  }
+
 }
