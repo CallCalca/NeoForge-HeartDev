@@ -35,10 +35,11 @@ rendering the health bar or not: if you were to use the RenderGuiLayerEvent.Pre 
 taking action on everything that is rendered in a player's screen. This method allows you to access and modify
 only that **particular instance** that is responsible for rendering hearts.
 
-It is provided with a runnable component,allowing all other methods to be put inside the **lambda expression**.
+It is provided with a runnable component, allowing all other methods to be put inside the **lambda expression**.
 
 <CodeTabs>
 ```js !!tabs ModEvents.class (in your onRenderHealth() event)
+
 HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
             //This is you workspace
             //Where all other methods will be put
@@ -48,7 +49,5 @@ HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
 
 //Any methods called outside that control method will activated
 //no metter if the event is rendering the health bar or not!
-
-
 ```
 </CodeTabs>
