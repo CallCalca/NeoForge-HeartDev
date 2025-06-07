@@ -66,12 +66,12 @@ The renderHealthBar(...) method is responsible for the **overriding** and **rend
 It presents in two different ways, the first requiring only 1 parameter (being a RenderGuiLayerEvent.Pre one, so the "event"),
 and the other one requiring 2 parameter being the RenderGuiLayerEvent.Pre one, and another lambda expression.
 
-The lambda expression is necessary to literally override certain elements through the **manipulation methods**.
+The lambda expression is necessary to **override** certain elements through the **manipulation methods**.
+
 
 <Callout variant="info">
-    To know more about **manipulation methods** check out the page explaining them (Manipulation methods).
+    To know more about **manipulation methods** check out the dedicated page.
 </Callout>
-
 
 <CodeTabs>
 ```js !!tabs Simple method
@@ -89,3 +89,12 @@ The lambda expression is necessary to literally override certain elements throug
 
 ```
 </CodeTabs>
+
+This method operates in multiple steps:
+1. **Aborting**: the method cancels the event, interrupting the rendering of the health bar (int this phase, the health bar is no longer rendered);
+2. **Building resources**: variables are registered, textures are initialized and player and world data are stored.
+3. **Rendering**: hearts are rendered following a particular order: first the **absorption** hearts are rendered, followed by the **containers** (the empty hearts),
+then the **blinking** hearts (the ones that appear when taking damage) and, at the end, the **normal** hearts (half and full red hearts).
+4. **Fix and reset**: finally the y start point of the armor bar is realigned to its normal value, and some variables get reset.
+
+This list can come in handy when trying to understand the manipulation methods.
