@@ -13,18 +13,18 @@ you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise 
 
 <CodeTabs>
 
-```js !!tabs ModEvents.class
-
+```js !!tabs Correct
 // use this --> HealthBar.HEALTH_INSTANCE
 
     HealthBar.HEALTH_INSTANCE.method();
+
 ```
 
-```js !!tabs ModEvents Error.class
-
+```js !!tabs Incorrect
 // DONT DO THIS /!\
 
     HealthBar.method(); //It won't work!
+
 
 ```
 
