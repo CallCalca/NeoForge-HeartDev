@@ -1,7 +1,7 @@
 {
   "prerequisites": {
     "name": "Prerequisites",
-    "icon": "SquirrelIcon"
+    "icon": "FileSliders"
   },
 
   "events.mdx": "Events",
