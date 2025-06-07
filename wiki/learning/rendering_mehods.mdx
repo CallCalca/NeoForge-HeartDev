@@ -74,9 +74,16 @@ The lambda expression is necessary to literally override certain elements throug
 
 
 <CodeTabs>
-```js !!tabs ModEvents.class (in your onRenderHealth() event)
+```js !!tabs Simple method
 
     HealthBar.HEALTH_INSTANCE.renderHealthBar(event);
+
+```
+```js !!tabs Complex method
+
+    HealthBar.HEALTH_INSTANCE.renderHealthBar(event () ->{
+            //The manipulation methods
+    });
 
 ```
 </CodeTabs>
