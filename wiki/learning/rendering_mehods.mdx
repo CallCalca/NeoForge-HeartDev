@@ -10,9 +10,7 @@ The HealthBar class provides an instance that is used to access the methods. To 
 you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise the methods won't appear, like this:
 
 
-
 <CodeTabs>
-
 ```js !!tabs Correct
 // use this --> HealthBar.HEALTH_INSTANCE
 
@@ -28,7 +26,6 @@ you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise 
 
 
 ```
-
 </CodeTabs>
 
 ### When should my healthBar be overridden? **shouldRenderHealthBar(...)**
@@ -38,11 +35,20 @@ rendering the health bar or not: if you were to use the RenderGuiLayerEvent.Pre 
 taking action on everything that is rendered in a player's screen. This method allows you to access and modify
 only that **particular instance** that is responsible for rendering hearts.
 
-It is provided with a lamba, within which all other methods will be placed.
+It is provided with a runnable component,allowing all other methods to be put inside the **lambda expression**.
 
-```
+<CodeTabs>
+```js !!tabs ModEvents.class (in your onRenderHealth() event)
 HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
             //This is you workspace
+            //Where all other methods will be put
 });
-//not this
+
+//Not this
+
+//Any methods called outside that control method will activated,
+//no metter if the event is rendering the health bar or not!
+
+
 ```
+</CodeTabs>
