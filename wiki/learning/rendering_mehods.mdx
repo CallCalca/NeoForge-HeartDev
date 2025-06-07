@@ -36,7 +36,8 @@ you need to use the _**HEALTH_INSTANCE**_ provided by the same class, otherwise 
 The first method to understand is **_shouldRenderHealthBar(...)_**. It controls whether the rendering event is actually
 rendering the health bar or not: if you were to use the RenderGuiLayerEvent.Pre event exactly as it is, you are
 taking action on everything that is rendered in a player's screen. This method allows you to access and modify
-only that **particular instance** that is responsible for rendering hearts. \n
+only that **particular instance** that is responsible for rendering hearts.
+
 It is provided with a lamba, within which all other methods will be placed.
 
 ```
