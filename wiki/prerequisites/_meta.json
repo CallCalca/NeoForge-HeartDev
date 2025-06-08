@@ -1,7 +1,7 @@
 {
   "implementation.mdx": {
     "name": "Implementation",
-    "icon": "Box"
+    "icon": "BetweenHorizontalStart"
   },
   "events.mdx": {
     "name": "Events",
