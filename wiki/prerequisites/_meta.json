@@ -1,4 +1,8 @@
 {
+  "implementation.mdx": {
+    "name": "Implementation",
+    "icon": "Box"
+  },
   "events.mdx": {
     "name": "Events",
     "icon": "Sunset"
