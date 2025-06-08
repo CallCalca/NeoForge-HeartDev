@@ -12,6 +12,11 @@
   "manipulation.mdx": {
     "name": "Manipulation Methods",
     "icon": "SquarePen"
+  },
+
+  "creation.mdx": {
+    "name": "Creation Methods",
+    "icon": "Box"
   }
 
 }
