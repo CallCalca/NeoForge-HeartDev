@@ -12,7 +12,8 @@
   },
 
   "components.mdx": "Components",
-  "rendering_methods.mdx": "Rendering methods",
+  "rendering.mdx": "Rendering methods",
+  "manipulation.mdx": "Manipulation methods",
 
   "setup":{
     "name" : "Using the library",

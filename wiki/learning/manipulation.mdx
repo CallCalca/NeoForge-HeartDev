@@ -1,0 +1,60 @@
+---
+title: Manipulation Methods
+---
+
+Manipulation methods can be used to set or override textures and behaviour of the health bar. These are stored
+int the HealthComponent class, can be accessed simply by calling the class (HealthComponent.method(...))
+
+## But how do I use them? **Set methods, and Override methods**
+----
+
+So, These methods can be divided in two big groups: the "Set" methods and the "Override" methods (distinguishable by their name), They operates in different
+ways, and so they need different application.
+
+Let's suppose you created your workspace and it looks something like this:
+
+<CodeTabs>
+```js !!tabs ModEvents.class (in your onRenderHealth() event)
+
+HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
+
+    HealthBar.HEALTH_INSTANCE.renderHealthBar(event, () -> {
+
+    });
+
+});
+```
+</CodeTabs>
+
+You can divide your workspace in two parts:
+
+<CodeTabs>
+```js !!tabs ModEvents.class (in your onRenderHealth() event)
+
+HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
+        //Manipulation methods
+            //Set methods
+    HealthBar.HEALTH_INSTANCE.renderHealthBar(event, () -> {
+        //Manipulation methods
+            //Override methods
+    });
+
+});
+```
+</CodeTabs>
+
+As you can see "Set" methods are placed under the shouldRenderHealthBar(...) and, obviously, before the renderHealthBar(...) method. "Override" method,
+on the other hand, are placed inside the lambda of the renderHealthBar method...
+But why that?
+
+### Set methods
+These methods operates by setting the value of certain variables that will then be used on phase 2 of the renderHealthBar(...) methods.
+They are used before the same method, because they can cast the value of the variables BEFORE they are used, so all resources will build in consequence.
+
+### Override methods
+These methods instead operates **overriding** variables that are assigned to a value in between phases and **can't therefore
+be accessed** before the renderHealthBar(...).
+Immagine this method as if it casted an **int** variable to 12. Event if you used an override method **before**,
+to set the variable to 8, it will then be **re-assigned**to 12. This is why these methods need to be used **'inside'**
+the method, in between phases (generally right before the rendering of the health bar phase),
+so that same variable will be still set to 12, but you override its value to 8 right before it is used for rendering!
