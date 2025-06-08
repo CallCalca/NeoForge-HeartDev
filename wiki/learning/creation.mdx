@@ -1,3 +1,38 @@
 ---
 title: Creation Methods
 ---
+
+Creation methods are the ones responsible for the creation of new resources and textures. These are located in the
+**HealthTypes** class.
+
+----
+
+## How do I create a new Heart Type? **createCustomHeartType(...)**
+To create a new heart type (or better, a new CustomHeartType), you can start by creating a new class to store the new resources.
+At this point you should use the **createCustomHeartType(...)** method, but what does it do? And how should I use it?
+
+
+<CodeTabs>
+```js !!tabs ModResources.class
+
+    CustomHeartType CUSTOM_HEART = HealthTypes.createCustomHeartType(YouMod.MOD_ID, "nameOfTheHeart");
+
+
+```
+</CodeTabs>
+
+This is how you use the method, putting as parameter you MOD_ID and the name of the heart. The name of the heart is extremely important, and,
+based on what you put, your textures may be seen or not. The createCustomHeartType(...) methods point to 8 different textures this being:
+|| Let's call "nameOfTheHeart" -> "name"
+- "name" + "_full.png": pointing to the **full** heart texture;
+- "name" + "_half.png": pointing to the **half** heart texture;
+- "name" + "_full_blinking.png": pointing to the **full blinking** heart texture;
+- "name" + "_half_blinking.png": pointing to the **half blinking** texture;
+- "name" + "_hardcore_full.png": pointing to the **hardcore full** heart texture;
+- "name" + "_hardcore_half.png": pointing to the **hardcore half** heart texture;
+- "name" + "_hardcore_full_blinking.png": pointing to the **hardcore full blinking** texture;
+- "name" + "_hardcore_half_blinking.png": pointing to the **hardcore half blinking** texture;
+
+This is how you should **rename** your texture. If, for instance, my heart textures are orange_full, orange_half... then the "nameOfTheHeart" would be **"orange"**.
+Also, your textures should be place in a specific path inside you project:
+        resources/**assets**/modid/**textures**/gui/**sprites**/hud/**heart**/texture.png
