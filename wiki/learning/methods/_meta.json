@@ -1,11 +1,11 @@
 {
   "arendering.mdx":  {
     "name": "Rendering Methods",
-    "icon": ""
+    "icon": "MonitorUp"
   },
   "bmanipulation.mdx": {
     "name": "Manipulation Methods",
-    "icon": ""
+    "icon": "SquarePen"
   }
 
 }
