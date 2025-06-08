@@ -4,8 +4,14 @@
     "icon": "ServerCog"
   },
 
-  "methods": {
-    "name": "Methods",
-    "icon": "BookOpenText"
+  "renering.mdx": {
+    "name": "Rendering Methods",
+    "icon": "MonitorUp"
+  },
+
+  "manipulation.mdx": {
+    "name": "Manipulation Methods",
+    "icon": "SquarePen"
   }
+
 }
