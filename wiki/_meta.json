@@ -18,8 +18,8 @@
     "icon": "BookOpenText"
   },
 
-  "1rendering.mdx": "Rendering methods",
-  "2manipulation.mdx": "Manipulation methods",
+  "arendering.mdx": "Rendering methods",
+  "bmanipulation.mdx": "Manipulation methods",
 
   "setup":{
     "name" : "Using the library",
