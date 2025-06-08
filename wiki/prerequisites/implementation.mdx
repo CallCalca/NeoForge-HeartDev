@@ -1,0 +1,42 @@
+---
+title: Implementation
+---
+
+To implement this mod you need to access your build.gradle file in your mod project, and go in the first "repositories" section you find.
+In here you need to insert this code:
+
+<CodeTabs>
+
+```js !!tabs build.gradle
+
+
+repositories {
+    maven { url = "https://api.modrinth.com/maven" } // insert this!
+}
+
+
+```
+
+</CodeTabs>
+
+Then in you "dependencies" section add this code:
+
+<CodeTabs>
+
+```js !!tabs build.gradle
+
+
+dependencies {
+    implementation("maven.modrinth:heartdev:<Version>") //HeartDev implementation!
+}
+
+
+```
+
+</CodeTabs>
+In <Version> put the last version available of the library! (for example <Version> = 1.0.5)
+
+
+That's it! Just reload your project and the download should start!
+----
+ -> Check out the **rest of the wiki** to understand how to use the library!
