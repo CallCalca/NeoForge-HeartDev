@@ -1,12 +1,11 @@
 {
+  "components.mdx": {
+    "name": "Components",
+    "icon": "ServerCog"
+  },
 
   "methods": {
     "name": "Methods",
     "icon": "BookOpenText"
-  },
-
-  "components.mdx": {
-    "name": "Components",
-    "icon": "ServerCog"
   }
 }
