@@ -35,4 +35,39 @@ based on what you put, your textures may be seen or not. The createCustomHeartTy
 
 This is how you should **rename** your textures. If, for instance, my heart textures are orange_full, orange_half... then the "nameOfTheHeart" would be **"orange"**.
 Also, your textures should be place in a specific path inside you project:
-- resources/**assets**/modid/**textures**/gui/**sprites**/hud/**heart**/texture.png
+
+## How do I create a new Container Type? **createNORMALCustomContainerType(...)** and **createCOMPLEXCustomContainerType(...)**
+Since container don't need an half variant of the textures, and can accept two different blinking textures
+(one for damage blinking, and the other for regen blinking), you use different methods.
+To generate a CustomContainerType with the **same** damage and regen **blinking textures**, you should use the **createNORMALCustomContainerType(...)** method.
+Instead, to separate the two textures, use the **createCOMPLEXCustomContainerType(...)** method.
+
+Here is how they operate:
+
+
+**createNORMALCustomContainerType(...)**
+
+1. "name" + "_container.png": pointing to the **container** texture;
+2. "name" + "_container_blinking.png": pointing to the **container blinking** texture;
+3. "name" + "_container_blinking.png": pointing to the **container blinking** texture;
+4. "name" + "_container_hardcore.png": pointing to the **container hardcore** texture;
+5. "name" + "_container_hardcore_blinking.png": pointing to the **container hardcore blinking** texture;
+6. "name" + "_container_hardcore_blinking.png": pointing to the **container hardcore blinking** texture;
+As you can see, the blinking textures have the same path.
+
+**createCOMPLEXCustomContainerType(...)**
+
+1. "name" + "_container.png": pointing to the **container** texture;
+2. "name" + "_container_blinking_damage.png": pointing to the **container blinking damage** texture;
+3. "name" + "_container_blinking_healing.png": pointing to the **container blinking healing** texture;
+4. "name" + "_container_hardcore.png": pointing to the **container hardcore** texture;
+5. "name" + "_container_hardcore_blinking_damage.png": pointing to the **container hardcore blinking damage** texture;
+6. "name" + "_container_hardcore_blinking_healing.png": pointing to the **container hardcore blinking healing** texture;
+This time the damage blinking and the regen blinking have different path.
+
+
+<Callout variant="warning">
+    The textures should be place in the same exact path: resources/**assets**/modid/**textures**/gui/**sprites**/hud/**heart**/texture.png
+
+    Also you should always name you textures based on the method you use.
+</Callout>
