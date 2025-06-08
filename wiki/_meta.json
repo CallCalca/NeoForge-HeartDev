@@ -12,8 +12,14 @@
   },
 
   "components.mdx": "Components",
-  "rendering.mdx": "Rendering methods",
-  "manipulation.mdx": "Manipulation methods",
+
+  "methods": {
+    "name": "Methods",
+    "icon": "BookOpenText"
+  },
+
+  "1rendering.mdx": "Rendering methods",
+  "2manipulation.mdx": "Manipulation methods",
 
   "setup":{
     "name" : "Using the library",
