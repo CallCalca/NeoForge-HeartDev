@@ -5,9 +5,10 @@ title: Creation Methods
 Creation methods are the ones responsible for the creation of new resources and textures. These are located in the
 **HealthTypes** class.
 
-----
 
 ## How do I create a new Heart Type? **createCustomHeartType(...)**
+----
+
 To create a new heart type (or better, a new CustomHeartType), you can start by creating a new class to store the new resources.
 At this point you should use the **createCustomHeartType(...)** method, but what does it do? And how should I use it?
 
@@ -21,8 +22,10 @@ At this point you should use the **createCustomHeartType(...)** method, but what
 ```
 </CodeTabs>
 
-This is how you use the method, putting as parameter you MOD_ID and the name of the heart. The name of the heart is extremely important, and,
-based on what you put, your textures may be seen or not. The createCustomHeartType(...) methods point to 8 different textures this being:
+This is how you use the method, putting as parameter you **MOD_ID** and the **name of the heart**. The name of the heart is **extremely important**, and,
+based on what you put, your textures must be named as consequence. The **createCustomHeartType(...)** methods point to **8 different textures** this being:
+
+
 || Let's call "nameOfTheHeart" -> "name"
 1. "name" + "**_full**.png": pointing to the **full** heart texture;
 2. "name" + "**_half**.png": pointing to the **half** heart texture;
@@ -37,6 +40,8 @@ This is how you should **rename** your textures. If, for instance, my heart text
 Also, your textures should be place in a specific path inside you project:
 
 ## How do I create a new Container Type? **createNORMALCustomContainerType(...)** and **createCOMPLEXCustomContainerType(...)**
+----
+
 Since containers don't need an half variant of the textures, and can accept two different blinking textures
 (one for damage blinking, and the other for regen blinking), you use different methods.
 To generate a CustomContainerType with the **same** damage and regen **blinking textures**, you should use the **createNORMALCustomContainerType(...)** method.
