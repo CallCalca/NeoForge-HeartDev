@@ -24,6 +24,16 @@ public class HealthComponent {
         HealthBarVariables.ABSORBING_HEARTS = customHeartType;
     }
 
+    public static void setRegenAnimationSpeed(int speed){
+        HealthBarVariables.regenAnimationSpeed = speed;
+    }
+    public static void setRegenAnimationCooldown(int cooldown){
+        HealthBarVariables.regenAnimationCooldown = cooldown;
+    }
+    public static void setRegenAnimationOffSetY(int offSetY){
+        HealthBarVariables.regenAnimationYoffSet = offSetY;
+    }
+
     /*
     public static void overrideHalfHeartBlinkingHealing(ResourceLocation halfHeartBlinking){
         HealthBarVariables.half_heart_blinking_healing = halfHeartBlinking;
@@ -84,113 +94,113 @@ public class HealthComponent {
     public static void overrideContainer(ResourceLocation container){
         HealthBarVariables.container = container;
     }
-    public static void overrideContainerBlinkingDamage(ResourceLocation containerBlinking){
+    public static void overrideContainerBlinking(ResourceLocation containerBlinking){
         HealthBarVariables.container_blinking_damage = containerBlinking;
     }
     public static void overrideContainerHardcore(ResourceLocation containerHardcore){
         HealthBarVariables.hardcore_container = containerHardcore;
     }
-    public static void overrideContainerHardcoreBlinkingDamage(ResourceLocation containerHardcoreBlinking){
+    public static void overrideContainerHardcoreBlinking(ResourceLocation containerHardcoreBlinking){
         HealthBarVariables.hardcore_container_blinking_damage = containerHardcoreBlinking;
     }
 
     public static void overrideFullHeart(ResourceLocation fullHeart){
         HealthBarVariables.full_heart = fullHeart;
     }
-    public static void overrideFullHeartBlinkingDamage(ResourceLocation fullHeartBlinking){
+    public static void overrideFullHeartBlinking(ResourceLocation fullHeartBlinking){
         HealthBarVariables.full_heart_blinking_damage = fullHeartBlinking;
     }
     public static void overrideHalfHeart(ResourceLocation halfHeart){
         HealthBarVariables.half_heart = halfHeart;
     }
-    public static void overrideHalfHeartBlinkingDamage(ResourceLocation halfHeartBlinking){
+    public static void overrideHalfHeartBlinking(ResourceLocation halfHeartBlinking){
         HealthBarVariables.half_heart_blinking_damage = halfHeartBlinking;
     }
     public static void overrideHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
         HealthBarVariables.hardcore_full_heart = hardcoreFullHeart;
     }
-    public static void overrideHardcoreFullHeartBlinkingDamage(ResourceLocation hardcoreFullHeartBlinking){
+    public static void overrideHardcoreFullHeartBlinking(ResourceLocation hardcoreFullHeartBlinking){
         HealthBarVariables.hardcore_full_heart_blinking_damage = hardcoreFullHeartBlinking;
     }
     public static void overrideHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
         HealthBarVariables.hardcore_half_heart = hardcoreHalfHeart;
     }
-    public static void overrideHardcoreHalfHeartBlinkingDamage(ResourceLocation hardcoreHalfHeartBlinking){
+    public static void overrideHardcoreHalfHeartBlinking(ResourceLocation hardcoreHalfHeartBlinking){
         HealthBarVariables.hardcore_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
     }
 
     public static void overridePoisonedFullHeart(ResourceLocation fullHeart){
         HealthBarVariables.poisoned_full_heart = fullHeart;
     }
-    public static void overridePoisonedFullHeartBlinkingDamage(ResourceLocation fullHeartBlinking){
+    public static void overridePoisonedFullHeartBlinking(ResourceLocation fullHeartBlinking){
         HealthBarVariables.poisoned_full_heart_blinking_damage = fullHeartBlinking;
     }
     public static void overridePoisonedHalfHeart(ResourceLocation halfHeart){
         HealthBarVariables.poisoned_half_heart = halfHeart;
     }
-    public static void overridePoisonedHalfHeartBlinkingDamage(ResourceLocation halfHeartBlinking){
+    public static void overridePoisonedHalfHeartBlinking(ResourceLocation halfHeartBlinking){
         HealthBarVariables.poisoned_half_heart_blinking_damage = halfHeartBlinking;
     }
     public static void overridePoisonedHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
         HealthBarVariables.hardcore_poisoned_full_heart = hardcoreFullHeart;
     }
-    public static void overridePoisonedHardcoreFullHeartBlinkingDamage(ResourceLocation hardcoreFullHeartBlinking){
+    public static void overridePoisonedHardcoreFullHeartBlinking(ResourceLocation hardcoreFullHeartBlinking){
         HealthBarVariables.hardcore_poisoned_full_heart_blinking_damage = hardcoreFullHeartBlinking;
     }
     public static void overridePoisonedHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
         HealthBarVariables.hardcore_poisoned_half_heart = hardcoreHalfHeart;
     }
-    public static void overridePoisonedHardcoreHalfHeartBlinkingDamage(ResourceLocation hardcoreHalfHeartBlinking){
+    public static void overridePoisonedHardcoreHalfHeartBlinking(ResourceLocation hardcoreHalfHeartBlinking){
         HealthBarVariables.hardcore_poisoned_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
     }
 
     public static void overrideWitheredFullHeart(ResourceLocation fullHeart){
         HealthBarVariables.withered_full_heart = fullHeart;
     }
-    public static void overrideWitheredFullHeartBlinkingDamage(ResourceLocation fullHeartBlinking){
+    public static void overrideWitheredFullHeartBlinking(ResourceLocation fullHeartBlinking){
         HealthBarVariables.withered_full_heart_blinking_damage = fullHeartBlinking;
     }
     public static void overrideWitheredHalfHeart(ResourceLocation halfHeart){
         HealthBarVariables.withered_half_heart = halfHeart;
     }
-    public static void overrideWitheredHalfHeartBlinkingDamage(ResourceLocation halfHeartBlinking){
+    public static void overrideWitheredHalfHeartBlinking(ResourceLocation halfHeartBlinking){
         HealthBarVariables.withered_half_heart_blinking_damage = halfHeartBlinking;
     }
     public static void overrideWitheredHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
         HealthBarVariables.hardcore_withered_full_heart = hardcoreFullHeart;
     }
-    public static void overrideWitheredHardcoreFullHeartBlinkingDamage(ResourceLocation hardcoreFullHeartBlinking){
+    public static void overrideWitheredHardcoreFullHeartBlinking(ResourceLocation hardcoreFullHeartBlinking){
         HealthBarVariables.hardcore_withered_full_heart_blinking_damage = hardcoreFullHeartBlinking;
     }
     public static void overrideWitheredHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
         HealthBarVariables.hardcore_withered_half_heart = hardcoreHalfHeart;
     }
-    public static void overrideWitheredHardcoreHalfHeartBlinkingDamage(ResourceLocation hardcoreHalfHeartBlinking){
+    public static void overrideWitheredHardcoreHalfHeartBlinking(ResourceLocation hardcoreHalfHeartBlinking){
         HealthBarVariables.hardcore_withered_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
     }
 
     public static void overrideFrozenFullHeart(ResourceLocation fullHeart){
         HealthBarVariables.frozen_full_heart = fullHeart;
     }
-    public static void overrideFrozenFullHeartBlinkingDamage(ResourceLocation fullHeartBlinking){
+    public static void overrideFrozenFullHeartBlinking(ResourceLocation fullHeartBlinking){
         HealthBarVariables.frozen_full_heart_blinking_damage = fullHeartBlinking;
     }
     public static void overrideFrozenHalfHeart(ResourceLocation halfHeart){
         HealthBarVariables.frozen_half_heart = halfHeart;
     }
-    public static void overrideFrozenHalfHeartBlinkingDamage(ResourceLocation halfHeartBlinking){
+    public static void overrideFrozenHalfHeartBlinking(ResourceLocation halfHeartBlinking){
         HealthBarVariables.frozen_half_heart_blinking_damage = halfHeartBlinking;
     }
     public static void overrideFrozenHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
         HealthBarVariables.hardcore_frozen_full_heart = hardcoreFullHeart;
     }
-    public static void overrideFrozenHardcoreFullHeartBlinkingDamage(ResourceLocation hardcoreFullHeartBlinking){
+    public static void overrideFrozenHardcoreFullHeartBlinking(ResourceLocation hardcoreFullHeartBlinking){
         HealthBarVariables.hardcore_frozen_full_heart_blinking_damage = hardcoreFullHeartBlinking;
     }
     public static void overrideFrozenHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
         HealthBarVariables.hardcore_frozen_half_heart = hardcoreHalfHeart;
     }
-    public static void overrideFrozenHardcoreHalfHeartBlinkingDamage(ResourceLocation hardcoreHalfHeartBlinking){
+    public static void overrideFrozenHardcoreHalfHeartBlinking(ResourceLocation hardcoreHalfHeartBlinking){
         HealthBarVariables.hardcore_frozen_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
     }
 
@@ -219,14 +229,5 @@ public class HealthComponent {
     }
     private static void setSpaceBetweenRows(int space){}
 
-    public static void setRegenAnimationSpeed(int speed){
-        HealthBarVariables.regenAnimationSpeed = speed;
-    }
-    public static void setRegenAnimationCooldown(int cooldown){
-        HealthBarVariables.regenAnimationCooldown = cooldown;
-    }
-    public static void setRegenAnimationOffSetY(int offSetY){
-        HealthBarVariables.regenAnimationYoffSet = offSetY;
-    }
 
 }
