@@ -10,11 +10,6 @@
     "icon": "BookOpenText"
   },
 
-  "methods": {
-    "name": "Methods",
-    "icon": "BookOpenText"
-  },
-
   "setup":{
     "name" : "Using the library",
     "icon" : "FileSliders"
