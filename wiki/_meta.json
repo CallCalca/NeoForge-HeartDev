@@ -1,10 +1,13 @@
 {
+  "events.mdx": "Events",
+  "arendering.mdx": "Rendering methods",
+  "bmanipulation.mdx": "Manipulation methods",
+
   "prerequisites": {
     "name": "Prerequisites",
     "icon": "Settings"
   },
 
-  "events.mdx": "Events",
 
   "learning": {
     "name": "Understanding the library",
@@ -17,9 +20,6 @@
     "name": "Methods",
     "icon": "BookOpenText"
   },
-
-  "arendering.mdx": "Rendering methods",
-  "bmanipulation.mdx": "Manipulation methods",
 
   "setup":{
     "name" : "Using the library",
