@@ -5,6 +5,8 @@ import net.calca.heartdev.main.effect.ModEffects;
 import net.calca.heartdev.main.heart.render.HealthBar;
 import net.calca.heartdev.main.heart.render.HealthBarVariables;
 import net.calca.heartdev.main.heart.render.HealthComponent;
+import net.calca.heartdev.main.heart.types.CustomContainerType;
+import net.calca.heartdev.main.heart.types.CustomHeartType;
 import net.calca.heartdev.main.heart.types.HealthTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -31,7 +33,10 @@ public class ModClientEvents {
                 HealthComponent.setRegenAnimationOffSetY(-1);
 
 
-                HealthBar.HEALTH_INSTANCE.renderHealthBar(event);
+                HealthBar.HEALTH_INSTANCE.renderHealthBar(event, () -> {
+                    HealthComponent.overrideHalfHeart(HealthTypes.ModdedTextures.BLUE_HEARTS.half());
+                    HealthComponent.overrideContainerBlinking(HealthTypes.ModdedTextures.MAGENTA_HEARTS.fullBlinkingDamage());
+                });
             }
         });
 

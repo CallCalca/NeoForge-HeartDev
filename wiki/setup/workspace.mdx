@@ -100,4 +100,55 @@ This way the custom health bar with weird withered hearts and strange regenerati
 </Callout>
 
 ## Can I use a CustomHeartType as hearts texture? **Custom Heart and Container Type**
-Obusly it is possible to use custom heart types as well as custom container types, as long as you register correctly (check out the guide on the )
+Obviously it is possible to use custom heart types as well as custom container types, as long as you register correctly
+(check out the guide on the **creation methods**). Here is a complete example:
+
+<CodeTabs>
+```js !!tabs MyResources.class
+
+public class MyResources{
+    public static CustomHeartType CUSTOM_HEART = HealthTypes.createCustomHeartType(YourMod.MODID, "customHeart");
+    public static CustomContainerType CUSTOM_CONTAINER = HealthTypes.createCustomHeartType(YourMod.MODID, "customContainer");
+}
+
+```
+```js !!tabs ModEvents.class
+
+            if (livingEntity.isInWater()) {
+                HealthComponent.setWitheredType(MyResources.CUSTOM_HEART);
+                HealthComponent.setContainerType(MyResources.CUSTOM_CONTAINER);
+                HealthComponent.setRegenAnimationSpeed(2);
+                HealthComponent.setRegenAnimationOffSetY(-1);
+
+
+                HealthBar.HEALTH_INSTANCE.renderHealthBar(event);
+            }
+
+```
+</CodeTabs>
+
+Let's try to override some textures using the complex form of the renderHealthBar(...) method, and the Override Methods:
+
+```js !!tabs ModEvents.class
+
+            if (livingEntity.isInWater()) {
+                HealthComponent.setWitheredType(MyResources.CUSTOM_HEART);
+                HealthComponent.setContainerType(MyResources.CUSTOM_CONTAINER);
+                HealthComponent.setRegenAnimationSpeed(2);
+                HealthComponent.setRegenAnimationOffSetY(-1);
+
+
+                HealthBar.HEALTH_INSTANCE.renderHealthBar(event, () -> {
+                    HealthComponent.overrideHalfHeart(HealthTypes.ModdedTextures.BLUE_HEARTS.half());
+                    HealthComponent.overrideContainerBlinking(HealthTypes.ModdedTextures.MAGENTA_HEARTS.fullBlinkingDamage());
+                });
+            }
+
+```
+</CodeTabs>
+This way the half red heart will now looks like the blue half heart and the container blinking heart (when taking damage) will looks like magenta blinking
+heart O_o. This health bar will looks strange but still it is yours, and you can now create your own health bars, looking as weird as you wish!
+----
+
+-> That's it for now! This is what HeartDev has to give, and hopefully this library will make your life a little bit easier when it
+comes to customizing the health bar! Have fun exploring the mod and stay tuned for newer updates!
