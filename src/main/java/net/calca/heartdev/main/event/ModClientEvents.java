@@ -8,6 +8,7 @@ import net.calca.heartdev.main.heart.render.HealthComponent;
 import net.calca.heartdev.main.heart.types.HealthTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffects;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,6 +24,16 @@ public class ModClientEvents {
 
     @SubscribeEvent
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
+        HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
+            if (livingEntity.isInWater()) {
+                HealthComponent.setWitheredType(HealthTypes.ModdedTextures.BLUE_HEARTS);
+                HealthComponent.setRegenAnimationSpeed(2);
+                HealthComponent.setRegenAnimationOffSetY(-1);
+
+
+                HealthBar.HEALTH_INSTANCE.renderHealthBar(event);
+            }
+        });
 
     }
 
