@@ -26,19 +26,6 @@ public class ModClientEvents {
 
     @SubscribeEvent
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
-        HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
-            if (livingEntity.isInWater()) {
-                HealthComponent.setWitheredType(HealthTypes.ModdedTextures.BLUE_HEARTS);
-                HealthComponent.setRegenAnimationSpeed(2);
-                HealthComponent.setRegenAnimationOffSetY(-1);
-
-
-                HealthBar.HEALTH_INSTANCE.renderHealthBar(event, () -> {
-                    HealthComponent.overrideHalfHeart(HealthTypes.ModdedTextures.BLUE_HEARTS.half());
-                    HealthComponent.overrideContainerBlinking(HealthTypes.ModdedTextures.MAGENTA_HEARTS.fullBlinkingDamage());
-                });
-            }
-        });
 
     }
 
