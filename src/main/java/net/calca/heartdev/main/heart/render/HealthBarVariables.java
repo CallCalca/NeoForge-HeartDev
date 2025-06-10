@@ -34,55 +34,39 @@ public class HealthBarVariables {
 
     public static ResourceLocation full_heart;
     public static ResourceLocation full_heart_blinking_damage;
-    private static ResourceLocation full_heart_blinking_healing = null;
     public static ResourceLocation half_heart;
     public static ResourceLocation half_heart_blinking_damage;
-    private static ResourceLocation half_heart_blinking_healing = null;
     public static ResourceLocation hardcore_full_heart;
     public static ResourceLocation hardcore_full_heart_blinking_damage;
-    private static ResourceLocation hardcore_full_heart_blinking_healing = null;
     public static ResourceLocation hardcore_half_heart;
     public static ResourceLocation hardcore_half_heart_blinking_damage;
-    private static ResourceLocation hardcore_half_heart_blinking_healing = null;
 
     public static ResourceLocation poisoned_full_heart;
     public static ResourceLocation poisoned_full_heart_blinking_damage;
-    private static ResourceLocation poisoned_full_heart_blinking_healing = null;
     public static ResourceLocation poisoned_half_heart;
     public static ResourceLocation poisoned_half_heart_blinking_damage;
-    private static ResourceLocation poisoned_half_heart_blinking_healing= null;
     public static ResourceLocation hardcore_poisoned_full_heart;
     public static ResourceLocation hardcore_poisoned_full_heart_blinking_damage;
-    private static ResourceLocation hardcore_poisoned_full_heart_blinking_healing = null;
     public static ResourceLocation hardcore_poisoned_half_heart;
     public static ResourceLocation hardcore_poisoned_half_heart_blinking_damage;
-    private static ResourceLocation hardcore_poisoned_half_heart_blinking_healing = null;
 
     public static ResourceLocation withered_full_heart;
     public static ResourceLocation withered_full_heart_blinking_damage;
-    private static ResourceLocation withered_full_heart_blinking_healing = null;
     public static ResourceLocation withered_half_heart;
     public static ResourceLocation withered_half_heart_blinking_damage;
-    private static ResourceLocation withered_half_heart_blinking_healing = null;
     public static ResourceLocation hardcore_withered_full_heart;
     public static ResourceLocation hardcore_withered_full_heart_blinking_damage;
-    private static ResourceLocation hardcore_withered_full_heart_blinking_healing = null;
     public static ResourceLocation hardcore_withered_half_heart;
     public static ResourceLocation hardcore_withered_half_heart_blinking_damage;
-    private static ResourceLocation hardcore_withered_half_heart_blinking_healing = null;
 
     public static ResourceLocation frozen_full_heart;
     public static ResourceLocation frozen_full_heart_blinking_damage;
-    private static ResourceLocation frozen_full_heart_blinking_healing = null;
     public static ResourceLocation frozen_half_heart;
     public static ResourceLocation frozen_half_heart_blinking_damage;
-    private static ResourceLocation frozen_half_heart_blinking_healing = null;
     public static ResourceLocation hardcore_frozen_full_heart;
     public static ResourceLocation hardcore_frozen_full_heart_blinking_damage;
-    private static ResourceLocation hardcore_frozen_full_heart_blinking_healing = null;
     public static ResourceLocation hardcore_frozen_half_heart;
     public static ResourceLocation hardcore_frozen_half_heart_blinking_damage;
-    private static ResourceLocation hardcore_frozen_half_heart_blinking_healing = null;
 
     public static ResourceLocation absorbing_full_heart;
     public static ResourceLocation absorbing_half_heart;
@@ -106,10 +90,6 @@ public class HealthBarVariables {
             hardcore_full_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/hardcore_full_blinking.png");
             hardcore_half_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/hardcore_half.png");
             hardcore_half_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/hardcore_half_blinking.png");
-            full_heart_blinking_healing = full_heart_blinking_damage;
-            half_heart_blinking_healing = half_heart_blinking_damage;
-            hardcore_full_heart_blinking_healing = hardcore_full_heart_blinking_damage;
-            hardcore_half_heart_blinking_healing = hardcore_half_heart_blinking_damage;
         } else if (heartType == Gui.HeartType.POISIONED) {
             poisoned_full_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/poisoned_full.png");
             poisoned_full_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/poisoned_full_blinking.png");
@@ -119,10 +99,6 @@ public class HealthBarVariables {
             hardcore_poisoned_full_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/poisoned_hardcore_full_blinking.png");
             hardcore_poisoned_half_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/poisoned_hardcore_half.png");
             hardcore_poisoned_half_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/poisoned_hardcore_half_blinking.png");
-            poisoned_full_heart_blinking_healing = poisoned_full_heart_blinking_damage;
-            poisoned_half_heart_blinking_healing = poisoned_half_heart_blinking_damage;
-            hardcore_poisoned_full_heart_blinking_healing = hardcore_poisoned_full_heart_blinking_damage;
-            hardcore_poisoned_half_heart_blinking_healing = hardcore_poisoned_half_heart_blinking_damage;
         } else if (heartType == Gui.HeartType.WITHERED) {
             withered_full_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/withered_full.png");
             withered_full_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/withered_full_blinking.png");
@@ -132,10 +108,6 @@ public class HealthBarVariables {
             hardcore_withered_full_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/withered_hardcore_full_blinking.png");
             hardcore_withered_half_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/withered_hardcore_half.png");
             hardcore_withered_half_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/withered_hardcore_half_blinking.png");
-            withered_full_heart_blinking_healing = withered_full_heart_blinking_damage;
-            withered_half_heart_blinking_healing = withered_half_heart_blinking_damage;
-            hardcore_withered_full_heart_blinking_healing = hardcore_withered_full_heart_blinking_damage;
-            hardcore_withered_half_heart_blinking_healing = hardcore_withered_half_heart_blinking_damage;
         } else if (heartType == Gui.HeartType.FROZEN) {
             frozen_full_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/frozen_full.png");
             frozen_full_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/frozen_full_blinking.png");
@@ -145,10 +117,6 @@ public class HealthBarVariables {
             hardcore_frozen_full_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/frozen_hardcore_full_blinking.png");
             hardcore_frozen_half_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/frozen_hardcore_half.png");
             hardcore_frozen_half_heart_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/frozen_hardcore_half_blinking.png");
-            frozen_full_heart_blinking_healing = frozen_full_heart_blinking_damage;
-            frozen_half_heart_blinking_healing = frozen_half_heart_blinking_damage;
-            hardcore_frozen_full_heart_blinking_healing = hardcore_frozen_full_heart_blinking_damage;
-            hardcore_frozen_half_heart_blinking_healing = hardcore_frozen_half_heart_blinking_damage;
         } else if (heartType == Gui.HeartType.ABSORBING) {
             absorbing_full_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/absorbing_full.png");
             absorbing_half_heart = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/absorbing_half.png");
@@ -157,6 +125,8 @@ public class HealthBarVariables {
         }
     }
 
+    /// method use to get the heart to draw (not used for the container hearts, since they would need a different method, and I decide
+    /// to simply write the code inside its rendering method)
     public static ResourceLocation getSprite(LivingEntity livingEntity, boolean isHardcore, boolean isHalf, boolean isBlinking, boolean isAbsorption){
         ResourceLocation txt;
             if (isHalf){
