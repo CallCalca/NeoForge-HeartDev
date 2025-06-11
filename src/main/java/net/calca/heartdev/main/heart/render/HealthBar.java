@@ -323,7 +323,7 @@ public class HealthBar {
         // scegli la texture di assorbimento
         ResourceLocation bg = HealthBarVariables.container;
         RenderSystem.setShaderTexture(0, bg);
-        gfx.blit(RenderType::entityCutout, bg, x, y, 0, 0, 9,9, 9,9);
+        gfx.blit(RenderType.GUI_TEXTURED_OVERLAY, bg, x, y, 0, 0, 9,9, 9,9);
 
 
         ResourceLocation texA = half
