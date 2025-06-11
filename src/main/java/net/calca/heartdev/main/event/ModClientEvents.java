@@ -26,7 +26,13 @@ public class ModClientEvents {
 
     @SubscribeEvent
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
+        if (true){
+            HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
 
+                HealthBar.HEALTH_INSTANCE.renderHealthBar(event);
+            });
+
+        }
     }
 
 }

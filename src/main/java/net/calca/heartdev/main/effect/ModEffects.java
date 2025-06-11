@@ -3,6 +3,7 @@ package net.calca.heartdev.main.effect;
 import net.calca.heartdev.HeartDev;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.neoforged.bus.api.IEventBus;

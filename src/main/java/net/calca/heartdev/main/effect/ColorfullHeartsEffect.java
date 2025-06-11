@@ -1,5 +1,6 @@
 package net.calca.heartdev.main.effect;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,8 +11,8 @@ public class ColorfullHeartsEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        return super.applyEffectTick(livingEntity, amplifier);
+    public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
+        return super.applyEffectTick(level, entity, amplifier);
     }
 
     @Override

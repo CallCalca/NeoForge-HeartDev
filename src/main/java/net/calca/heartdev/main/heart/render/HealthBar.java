@@ -10,6 +10,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -292,7 +293,7 @@ public class HealthBar {
         }
 
         RenderSystem.setShaderTexture(0, heartsBackground);
-        gfx.blit(heartsBackground, x, y, 0, 0, 9, 9, 9, 9);
+        gfx.blit(RenderType.GUI_TEXTURED_OVERLAY, heartsBackground, x, y, 0, 0, 9, 9, 9, 9);
     }
     private void renderBlinking(LivingEntity livingEntity, boolean isHardcore, GuiGraphics gfx, int i, int x, int y, int maxHealth, float health,
                                 boolean blinking, boolean takingDamage) {
@@ -313,7 +314,7 @@ public class HealthBar {
 
             if (blinkTex != null) {
                 RenderSystem.setShaderTexture(0, blinkTex);
-                gfx.blit(blinkTex, x, y, 0, 0, 9, 9, 9, 9);
+                gfx.blit(RenderType.GUI_TEXTURED_OVERLAY, blinkTex, x, y, 0, 0, 9, 9, 9, 9);
             }
         }
     }
@@ -322,7 +323,7 @@ public class HealthBar {
         // scegli la texture di assorbimento
         ResourceLocation bg = HealthBarVariables.container;
         RenderSystem.setShaderTexture(0, bg);
-        gfx.blit(bg, x, y, 0, 0, 9,9, 9,9);
+        gfx.blit(RenderType::entityCutout, bg, x, y, 0, 0, 9,9, 9,9);
 
 
         ResourceLocation texA = half
@@ -331,7 +332,7 @@ public class HealthBar {
 
         // disegna cuore di assorbimento
         RenderSystem.setShaderTexture(0, texA);
-        gfx.blit(texA, x, y, 0, 0, 9,9, 9,9);
+        gfx.blit(RenderType.GUI_TEXTURED_OVERLAY, texA, x, y, 0, 0, 9,9, 9,9);
     }
     private void renderHeart(LivingEntity livingEntity, boolean isHardcore, GuiGraphics gfx, int i, int x, int y, int fullHearts, boolean half) {
         ResourceLocation heartTex = null;
@@ -343,7 +344,7 @@ public class HealthBar {
 
         if (heartTex != null) {
             RenderSystem.setShaderTexture(0, heartTex);
-            gfx.blit(heartTex, x, y, 0, 0, 9, 9, 9, 9);
+            gfx.blit(RenderType.GUI_TEXTURED_OVERLAY, heartTex, x, y, 0f, 0f, 9, 9, 9, 9);
         }
     }
 
