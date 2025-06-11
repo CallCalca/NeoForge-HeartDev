@@ -213,7 +213,6 @@ public class HealthBar {
                 boolean halfAbs = (maxAbsorption % 2) != 0 && j == absorbSlots - 1;
 
                 renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs);
-
             }
 
             for (int i = totalHearts - 1; i >= 0; i--) {
