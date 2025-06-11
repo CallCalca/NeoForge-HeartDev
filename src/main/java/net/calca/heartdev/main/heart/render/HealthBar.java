@@ -149,9 +149,9 @@ public class HealthBar {
             // Positioning and graphics
             GuiGraphics gfx = event.getGuiGraphics();
             int height = gfx.guiHeight();
-            int topBase = height - mc.gui.leftHeight;
+            HealthBarVariables.startY = height - mc.gui.leftHeight;
             int width = gfx.guiWidth();
-            int left = width / 2 - 91;
+            HealthBarVariables.startX = width / 2 - 91;
 
             // Time and animations
             long tickCount = mc.gui.getGuiTicks();
@@ -207,34 +207,33 @@ public class HealthBar {
                 int slotIndex = totalHearts + j;
                 int line = slotIndex / 10;
                 int col  = slotIndex % 10;
-                HealthBarVariables.startX = left + col * 8;
-                HealthBarVariables.startY = topBase - line * spacing;
-                overrides.run();
+                int x = HealthBarVariables.startX + col * 8;
+                int y = HealthBarVariables.startY - line * spacing;
 
                 boolean halfAbs = (maxAbsorption % 2) != 0 && j == absorbSlots - 1;
 
-                renderAbsorption(player, HealthBarVariables.isHardcore, gfx, HealthBarVariables.startX, HealthBarVariables.startY, halfAbs);
+                renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs);
 
             }
 
+        overrides.run();
             for (int i = totalHearts - 1; i >= 0; i--) {
                 int line = i / 10;
-                HealthBarVariables.startX = left + (i % 10) * 8;
-                HealthBarVariables.startY = topBase - line * spacing;
-                overrides.run();
+                int x = HealthBarVariables.startX + (i % 10) * 8;
+                int y = HealthBarVariables.startY - line * spacing;
 
-                if (health + maxAbsorption <= 4) HealthBarVariables.startY += random.nextInt(2);
-                if (i == regenIndex) HealthBarVariables.startY += yOffset;
+                if (health + maxAbsorption <= 4) y += random.nextInt(2);
+                if (i == regenIndex) y += yOffset;
 
 
                 // -- 3) RENDER BACKGROUND CUORI (vuoti + absorption) --
-                renderContainer(HealthBarVariables.isHardcore, gfx, HealthBarVariables.startX, HealthBarVariables.startY, blinking, takingRegen);
+                renderContainer(HealthBarVariables.isHardcore, gfx, x, y, blinking, takingRegen);
 
                 // -- 4) RENDER BLINKING HEARTS (danno) --
-                renderBlinking(player, HealthBarVariables.isHardcore, gfx, i, HealthBarVariables.startX, HealthBarVariables.startY, maxHealth, health, blinking, takingDamage);
+                renderBlinking(player, HealthBarVariables.isHardcore, gfx, i, x, y, maxHealth, health, blinking, takingDamage);
 
                 // -- 5) RENDER CUORI PIENI NORMALI --
-                renderHeart(player, HealthBarVariables.isHardcore, gfx, i, HealthBarVariables.startX, HealthBarVariables.startY, fullHearts, half);
+                renderHeart(player, HealthBarVariables.isHardcore, gfx, i, x, y, fullHearts, half);
 
             }
                 fixArmors(rows, spacing);
