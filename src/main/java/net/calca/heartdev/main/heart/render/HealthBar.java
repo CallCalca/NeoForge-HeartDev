@@ -22,6 +22,12 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+/**
+ * This mod was possible to made thanks to the Colorful Hearts mod, from which I took inspiration.
+ * The following methods, in fact, present a revisited version of the Colorful Hearts rendering code.
+ * Colorful Hearts license = MIT license (in date 16/06/2025 for version 1.21.1 NeoForge)
+ * Colorful Hearts author = Terrails
+ */
 public class HealthBar {
     public static class PreSets {
         private final Minecraft mc = Minecraft.getInstance();
@@ -141,7 +147,7 @@ public class HealthBar {
 
             int rows      = (totalHealth + 9) / 10;
             int extra     = Math.max(0, rows - 2);
-            int spacing   = 10 - Math.min(extra, 7);
+            int spacing   = HealthBarVariables.spaceBetweenRowsMax - Math.min(extra, HealthBarVariables.spaceBetweenRowsMin);
 
             // cuori health (+ boost) già disegnati
             int absorbSlots     = Mth.ceil(maxAbsorption / 2f);
@@ -203,39 +209,38 @@ public class HealthBar {
             regenerating --;
             // -- 2) ---
 
-        for (int j = absorbSlots - 1; j >= 0; j--) {
-            int slotIndex = totalHearts + j;
-            int line = slotIndex / 10;
-            int col  = slotIndex % 10;
-            int x = HealthBarVariables.startX + col * 8;
-            int y = HealthBarVariables.startY - line * spacing;
-
-            boolean halfAbs = (maxAbsorption % 2) != 0 && j == absorbSlots - 1;
-
-            renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs);
-
-        }
-
         overrides.run();
-        for (int i = totalHearts - 1; i >= 0; i--) {
-            int line = i / 10;
-            int x = HealthBarVariables.startX + (i % 10) * 8;
-            int y = HealthBarVariables.startY - line * spacing;
+            for (int j = absorbSlots - 1; j >= 0; j--) {
+                int slotIndex = totalHearts + j;
+                int line = slotIndex / 10;
+                int col  = slotIndex % 10;
+                int x = HealthBarVariables.startX + col * 8;
+                int y = HealthBarVariables.startY - line * spacing;
 
-            if (health + maxAbsorption <= 4) y += random.nextInt(2);
-            if (i == regenIndex) y += yOffset;
+                boolean halfAbs = (maxAbsorption % 2) != 0 && j == absorbSlots - 1;
+
+                renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs);
+            }
+
+            for (int i = totalHearts - 1; i >= 0; i--) {
+                int line = i / 10;
+                int x = HealthBarVariables.startX + (i % 10) * 8;
+                int y = HealthBarVariables.startY - line * spacing;
+
+                if (health + maxAbsorption <= 4) y += random.nextInt(2);
+                if (i == regenIndex) y += yOffset;
 
 
-            // -- 3) RENDER BACKGROUND CUORI (vuoti + absorption) --
-            renderContainer(HealthBarVariables.isHardcore, gfx, x, y, blinking, takingRegen);
+                // -- 3) RENDER BACKGROUND CUORI (vuoti + absorption) --
+                renderContainer(HealthBarVariables.isHardcore, gfx, x, y, blinking, takingRegen);
 
-            // -- 4) RENDER BLINKING HEARTS (danno) --
-            renderBlinking(player, HealthBarVariables.isHardcore, gfx, i, x, y, maxHealth, health, blinking, takingDamage);
+                // -- 4) RENDER BLINKING HEARTS (danno) --
+                renderBlinking(player, HealthBarVariables.isHardcore, gfx, i, x, y, maxHealth, health, blinking, takingDamage);
 
-            // -- 5) RENDER CUORI PIENI NORMALI --
-            renderHeart(player, HealthBarVariables.isHardcore, gfx, i, x, y, fullHearts, half);
+                // -- 5) RENDER CUORI PIENI NORMALI --
+                renderHeart(player, HealthBarVariables.isHardcore, gfx, i, x, y, fullHearts, half);
 
-        }
+            }
                 fixArmors(rows, spacing);
 
             //Reset
@@ -249,6 +254,9 @@ public class HealthBar {
         HealthBarVariables.regenAnimationSpeed = 1;
         HealthBarVariables.regenAnimationCooldown = 15;
         HealthBarVariables.regenAnimationYoffSet = -2;
+
+        HealthBarVariables.spaceBetweenRowsMax = 10;
+        HealthBarVariables.spaceBetweenRowsMin = 7;
     }
 
 
