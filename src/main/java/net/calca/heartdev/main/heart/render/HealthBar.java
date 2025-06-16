@@ -21,6 +21,12 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+/**
+ * This mod was possible to made thanks to the Colorful Hearts mod, from which I took inspiration.
+ * The following methods, in fact, present a revisited version of the Colorful Hearts rendering code.
+ * Colorful Hearts license = MIT license (in date 16/06/2025 for version 1.21.1 NeoForge)
+ * Colorful Hearts author = Terrails
+ */
 public class HealthBar {
     public static class PreSets {
         private final Minecraft mc = Minecraft.getInstance();

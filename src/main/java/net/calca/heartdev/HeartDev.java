@@ -31,6 +31,12 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
+
+/**
+ * This mod was possible to made thanks to the Colorful Hearts mod, from which I took inspiration.
+ * Colorful Hearts license = MIT license (in date 16/06/2025 for version 1.21.1 NeoForge)
+ * Colorful Hearts author = Terrails
+ */
 @Mod(HeartDev.MOD_ID)
 public class HeartDev {
 
