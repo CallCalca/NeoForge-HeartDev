@@ -140,7 +140,7 @@ public class HealthBar {
 
             int rows      = (totalHealth + 9) / 10;
             int extra     = Math.max(0, rows - 2);
-            int spacing   = 10 - Math.min(extra, 7);
+            int spacing   = HealthBarVariables.spaceBetweenRowsMax - Math.min(extra, HealthBarVariables.spaceBetweenRowsMin);
 
             // cuori health (+ boost) già disegnati
             int absorbSlots     = Mth.ceil(maxAbsorption / 2f);
