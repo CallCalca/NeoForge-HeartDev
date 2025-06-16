@@ -253,6 +253,9 @@ public class HealthBar {
         HealthBarVariables.regenAnimationSpeed = 1;
         HealthBarVariables.regenAnimationCooldown = 15;
         HealthBarVariables.regenAnimationYoffSet = -2;
+
+        HealthBarVariables.spaceBetweenRowsMax = 10;
+        HealthBarVariables.spaceBetweenRowsMin = 7;
     }
 
 
