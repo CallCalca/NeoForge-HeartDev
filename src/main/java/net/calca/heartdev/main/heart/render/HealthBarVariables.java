@@ -12,7 +12,8 @@ public class HealthBarVariables {
 
     public static int startY;
     public static int startX;
-    public static int spaceBetweenRows;
+    public static int spaceBetweenRowsMax = 10;
+    public static int spaceBetweenRowsMin = 7;
 
     public static int regenAnimationSpeed = 1;
     public static int regenAnimationCooldown = 15;

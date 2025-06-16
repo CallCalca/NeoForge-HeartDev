@@ -33,6 +33,16 @@ public class HealthComponent {
     public static void setRegenAnimationOffSetY(int offSetY){
         HealthBarVariables.regenAnimationYoffSet = offSetY;
     }
+    public static void overrideIsHardcore(boolean isHardcore){
+        HealthBarVariables.isHardcore = isHardcore;
+    }
+
+    public static void setMaximumSpaceBetweenRows(int space){
+        HealthBarVariables.spaceBetweenRowsMax = space;
+    }
+    public static void setMinimumSpaceBetweenRows(int space){
+        HealthBarVariables.spaceBetweenRowsMin = space;
+    }
 
     public static void overrideContainer(ResourceLocation container){
         HealthBarVariables.container = container;
@@ -173,10 +183,6 @@ public class HealthComponent {
     public static void overrideStartX(int startX){
         HealthBarVariables.startX = startX;
     }
-    public static void overrideIsHardcore(boolean isHardcore){
-        HealthBarVariables.isHardcore = isHardcore;
-    }
-    private static void setSpaceBetweenRows(int space){}
 
 
 }
