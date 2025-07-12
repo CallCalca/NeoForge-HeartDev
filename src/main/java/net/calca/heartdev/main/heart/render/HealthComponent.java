@@ -44,6 +44,13 @@ public class HealthComponent {
         HealthBarVariables.spaceBetweenRowsMin = space;
     }
 
+    public static void setHideEmptyHearts(boolean hide){
+        HealthBarVariables.hideEmptyHearts = hide;
+    }
+    public static void setCollapseDifferentLifeTypes(boolean collapse){
+        HealthBarVariables.collapseDifferentLifeTypes = collapse;
+    }
+
     public static void overrideContainer(ResourceLocation container){
         HealthBarVariables.container = container;
     }
