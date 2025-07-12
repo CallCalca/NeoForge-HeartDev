@@ -18,7 +18,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -135,21 +137,41 @@ public class HealthBar {
             // Health and absorption
             int health = Mth.ceil(player.getHealth());
             int maxHealth = Mth.ceil(player.getMaxHealth());
-            int maxAbsorption = Mth.ceil(player.getAbsorptionAmount());
+            int absorption = Mth.ceil(player.getAbsorptionAmount());
+            Set<Integer> absorptionSlots = new HashSet<>();
+
+
+        if (HealthBarVariables.hideEmptyHearts){
+                maxHealth = (health % 2 == 0) ? health : health + 1;
+            }
+
 
 
             // Hearts and rows
             int fullHearts = health / 2;
             boolean half = (health % 2) != 0;
-            int totalHearts = maxHealth / 2 + (maxHealth % 2);      // ⇐ CALCOLO DELLO SPACING UNIFORME ⇐
-            int totalHealth = (maxHealth / 2 + (maxHealth % 2)) + (maxAbsorption / 2 + (maxAbsorption % 2));
+            int redHearts = maxHealth / 2 + (maxHealth % 2);
+            int currentRedHearts = health / 2 + (health % 2);
+            int totalHearts = (maxHealth / 2 + (maxHealth % 2)) + (absorption / 2 + (absorption % 2));
+            int totalCurrentHearts = (health / 2 + (health % 2)) + (absorption / 2 + (absorption % 2));
+            int totalHealth = health + absorption;
 
-            int rows      = (totalHealth + 9) / 10;
+            int rows      = (totalHearts + 9) / 10;
+            if (HealthBarVariables.collapseDifferentLifeTypes){
+                if (half){
+                    // righe “collapse”: usa totale slot reali
+                    int r = (((totalHealth + 1) / 2) + 9) / 10;
+                    // fino a 2 righe piene (<=20 slot) forzi rows=2,
+                    // solo da 21 slot in su r diventa 3.
+                    rows = Math.max(r, 2);
+                }else{
+                    rows = ((totalCurrentHearts + 9) / 10);
+                }
+            }
             int extra     = Math.max(0, rows - 2);
             int spacing   = HealthBarVariables.spaceBetweenRowsMax - Math.min(extra, HealthBarVariables.spaceBetweenRowsMin);
 
             // cuori health (+ boost) già disegnati
-            int absorbSlots     = Mth.ceil(maxAbsorption / 2f);
 
             // Positioning and graphics
             GuiGraphics gfx = event.getGuiGraphics();
@@ -209,29 +231,84 @@ public class HealthBar {
             // -- 2) ---
 
         overrides.run();
+
+        if (HealthBarVariables.collapseDifferentLifeTypes && half){
+            absorption++;
+        }
+
+
+        int absorbSlots     = Mth.ceil(absorption / 2f);
+        boolean absorptionHalf;
+        if (HealthBarVariables.collapseDifferentLifeTypes){
+            absorptionHalf = (totalHealth % 2) != 0;
+        }else{
+            absorptionHalf = (absorption % 2) != 0;
+        }
             for (int j = absorbSlots - 1; j >= 0; j--) {
-                int slotIndex = totalHearts + j;
+                int slotIndex = redHearts + j;
+
+                if (HealthBarVariables.collapseDifferentLifeTypes){
+                    slotIndex = currentRedHearts + j;
+                }
+
                 int line = slotIndex / 10;
-                int col  = slotIndex % 10;
+                int col  = (slotIndex % 10);
+
+                if (HealthBarVariables.collapseDifferentLifeTypes && half){
+                    int check = (slotIndex) / 11;
+                    if ((check == 0)){
+                        col  = ((slotIndex) % 11);
+                        line = slotIndex / 11;
+                        col --;
+                    }else{
+                        slotIndex--;
+                        line = slotIndex / 10;
+                        col  = (slotIndex % 10);
+                    }
+                }
+                int localSpacing = line * spacing;
+
                 int x = HealthBarVariables.startX + col * 8;
-                int y = HealthBarVariables.startY - line * spacing;
+                int y = HealthBarVariables.startY - localSpacing;
 
-                boolean halfAbs = (maxAbsorption % 2) != 0 && j == absorbSlots - 1;
 
-                renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs);
+                boolean halfAbs = (absorptionHalf && j == absorbSlots - 1);
+
+
+
+                if (HealthBarVariables.collapseDifferentLifeTypes && half){
+                    halfAbs = absorptionHalf && j == absorbSlots-1;
+                    if (absorption-1 > 0 && (j > 0 || half)){
+                        int key = line * 10 + col;
+                        absorptionSlots.add(key);
+                        renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs);
+                    }
+                }else{
+                    int key = line * 10 + col;
+                    absorptionSlots.add(key);
+                    renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs);
+                }
+
             }
 
-            for (int i = totalHearts - 1; i >= 0; i--) {
+            for (int i = redHearts - 1; i >= 0; i--) {
                 int line = i / 10;
+                int col  = i % 10;
                 int x = HealthBarVariables.startX + (i % 10) * 8;
                 int y = HealthBarVariables.startY - line * spacing;
 
-                if (health + maxAbsorption <= 4) y += random.nextInt(2);
+                if (health + absorption <= 4) y += random.nextInt(2);
                 if (i == regenIndex) y += yOffset;
 
 
                 // -- 3) RENDER BACKGROUND CUORI (vuoti + absorption) --
-                renderContainer(HealthBarVariables.isHardcore, gfx, x, y, blinking, takingRegen);
+                if (HealthBarVariables.collapseDifferentLifeTypes){int key = line * 10 + col;
+                    if (!absorptionSlots.contains(key)) {
+                        renderContainer(HealthBarVariables.isHardcore, gfx, x, y, blinking, takingRegen);
+                    }
+                }else{
+                    renderContainer(HealthBarVariables.isHardcore, gfx, x, y, blinking, takingRegen);
+                }
 
                 // -- 4) RENDER BLINKING HEARTS (danno) --
                 renderBlinking(player, HealthBarVariables.isHardcore, gfx, i, x, y, maxHealth, health, blinking, takingDamage);
@@ -250,9 +327,15 @@ public class HealthBar {
         HealthBarVariables.FROZEN_HEARTS = null;
         HealthBarVariables.ABSORBING_HEARTS = null;
 
+        HealthBarVariables.hideEmptyHearts = false;
+        HealthBarVariables.collapseDifferentLifeTypes = false;
+
         HealthBarVariables.regenAnimationSpeed = 1;
         HealthBarVariables.regenAnimationCooldown = 15;
         HealthBarVariables.regenAnimationYoffSet = -2;
+
+        HealthBarVariables.spaceBetweenRowsMax = 10;
+        HealthBarVariables.spaceBetweenRowsMin = 7;
     }
 
 

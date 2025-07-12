@@ -55,14 +55,6 @@ public class HeartDev {
 
         ModEffects.register(modEventBus);
 
-
-        /*
-        1) Supporto ABSORPTION
-        2) SUPPORTO ARMATURA LAYER
-        3) ?
-         */
-
-
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::registerNetworking);
