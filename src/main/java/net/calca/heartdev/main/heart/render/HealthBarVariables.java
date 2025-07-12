@@ -15,6 +15,9 @@ public class HealthBarVariables {
     public static int spaceBetweenRowsMax = 10;
     public static int spaceBetweenRowsMin = 7;
 
+    public static boolean hideEmptyHearts = false;
+    public static boolean collapseDifferentLifeTypes = false;
+
     public static int regenAnimationSpeed = 1;
     public static int regenAnimationCooldown = 15;
     public static int regenAnimationYoffSet = -2;
