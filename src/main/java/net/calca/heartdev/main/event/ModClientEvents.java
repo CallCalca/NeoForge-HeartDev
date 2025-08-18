@@ -27,12 +27,15 @@ public class ModClientEvents {
     @SubscribeEvent
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
 
+        /*
         HealthBar.HEALTH_INSTANCE.shouldRenderHealthBar(event, livingEntity -> {
             HealthBarVariables.hideEmptyHearts = false;
             HealthBarVariables.collapseDifferentLifeTypes = false;
             HealthBar.HEALTH_INSTANCE.renderHealthBar(event);
         });
 
+
+         */
 
 
     }
