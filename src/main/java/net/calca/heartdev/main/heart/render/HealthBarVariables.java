@@ -7,6 +7,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class HealthBarVariables {
     public static boolean isHardcore;
 
@@ -17,6 +20,7 @@ public class HealthBarVariables {
 
     public static boolean hideEmptyHearts = false;
     public static boolean collapseDifferentLifeTypes = false;
+    public static Set<Integer> absorptionSlotsList = new HashSet<>(); //List to check for absorption hearts UNKOWN
 
     public static int regenAnimationSpeed = 1;
     public static int regenAnimationCooldown = 15;

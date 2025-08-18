@@ -135,6 +135,8 @@ public class HealthBar {
             return;
         }
         render.accept(player);
+
+        HealthBarVariables.absorptionSlotsList = new HashSet<>(); //Reset qua perche cosi tutti i metodi di render, anche quelli di vite+, comunicano tra loro.
     }
 
     //Simple method version
@@ -161,7 +163,6 @@ public class HealthBar {
             int maxHealth = Mth.ceil(player.getMaxHealth()); //Current player's max health
             int absorption = Mth.ceil(player.getAbsorptionAmount()); //Current player's absorption health amount
             int totalHealth = health + absorption; //Total player's health (normal + absorption)
-            Set<Integer> absorptionSlotsList = new HashSet<>(); //List to check for absorption hearts UNKOWN
 
 
         //If empty hearts are hidden, this block will fire, reducing maxHealth variable to the current hearts of player, plus 1 in case it is uneven.
@@ -274,11 +275,11 @@ public class HealthBar {
             absorptionHalf = (absorption % 2) != 0;
         }
         //Rendering absorption hearts CYCLE
-        renderAbsorptionHeartsCycle(maxHearts, currentHearts, hasHalfHeart, absorption, absorbSlots, absorptionHalf, spacing, gfx, player, absorptionSlotsList);
+        renderAbsorptionHeartsCycle(maxHearts, currentHearts, hasHalfHeart, absorption, absorbSlots, absorptionHalf, spacing, gfx, player);
 
-        renderNormalHeartCycle(maxHearts, fullCurrentHearts, spacing, health, absorption, yOffset, absorptionSlotsList, gfx, blinking, takingDamage, takingRegen, maxHealth,
-                hasHalfHeart, player);
             //Normal life type render CYCLE
+        renderNormalHeartCycle(maxHearts, fullCurrentHearts, spacing, health, absorption, yOffset, gfx, blinking, takingDamage, takingRegen, maxHealth,
+                hasHalfHeart, player);
             //Y start point is fixed to allow the armor bar to correctly render.
                 fixArmors(rows, spacing);
 
@@ -292,7 +293,7 @@ public class HealthBar {
     //Contains the cycle to render the absorption life type hearts
     @Deprecated
     public void renderAbsorptionHeartsCycle(int maxHearts, int currentHearts, boolean hasHalfHeart, int absorption, int absorbSlots, boolean absorptionHalf, int spacing,
-                                            GuiGraphics gfx, LivingEntity player, Set<Integer> absorptionSlots){
+                                            GuiGraphics gfx, LivingEntity player){
 
         for (int j = absorbSlots - 1; j >= 0; j--) {
             int slotIndex = maxHearts + j; //The slot is going to be rendered. It starts from maxHearts because those are the normal life slots.
@@ -337,25 +338,24 @@ public class HealthBar {
                 //the is not being rendered the first slot (j > 0) or the player has and half normal heart, this block will fire
                 if (absorption-1 > 0 && (j > 0 || hasHalfHeart)){
                     int key = line * 10 + col; //The slot value
-                    absorptionSlots.add(key); //The slot this happens to be true will be saved inside the absorptionSlots list, that will be later used.
+                    HealthBarVariables.absorptionSlotsList.add(key); //The slot this happens to be true will be saved inside the absorptionSlots list, that will be later used.
                     renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs); //Finally the absorption heart is rendered
                 }
             }else{ //This will basically fire when the player does not have a full heart.
                 int key = line * 10 + col; //The slot value
-                absorptionSlots.add(key);//The slot will be saved inside the absorptionSlots list, that will be later used.
+                HealthBarVariables.absorptionSlotsList.add(key);//The slot will be saved inside the absorptionSlots list, that will be later used.
                 renderAbsorption(player, HealthBarVariables.isHardcore, gfx, x, y, halfAbs); //Finally the absorption heart is rendered
             }
 
         }
 
     }
-
     /**
      *Last change in version: 1.1.4-neoforge
      */
     //Contains the for cycle to render the normal life type hearts
     @Deprecated
-    public void renderNormalHeartCycle(int maxHearts, int fullCurrentHearts, int spacing, int health, int absorption, int yOffset, Set<Integer> absorptionSlotsList, GuiGraphics gfx,
+    public void renderNormalHeartCycle(int maxHearts, int fullCurrentHearts, int spacing, int health, int absorption, int yOffset, GuiGraphics gfx,
                                        boolean blinking, boolean takingDamage, boolean takingRegen, int maxHealth, boolean hasHalfHeart, LivingEntity player){
         for (int i = maxHearts - 1; i >= 0; i--) {
             int line = i / 10; //The line in which this particular slot is in
@@ -372,7 +372,7 @@ public class HealthBar {
             if (HealthBarVariables.collapseDifferentLifeTypes){
                 int key = line * 10 + col; //Current slot value
                 //If the current slot value does not match any of the value inside the absorptionSlotsList list, this block will fire
-                if (!absorptionSlotsList.contains(key)) {
+                if (!HealthBarVariables.absorptionSlotsList.contains(key)) {
                     renderContainer(HealthBarVariables.isHardcore, gfx, x, y, blinking, takingRegen); //The container is rendered
                 }
                 //Concluding, the container is rendered only in those slots that are not the absorption slots. It is this way because the container would be
@@ -390,7 +390,6 @@ public class HealthBar {
         }
 
     }
-
 
     //Set all necessarry variable responsible for heart rendering
     @Deprecated
@@ -542,7 +541,7 @@ public class HealthBar {
         }
     }
 
-    //Fix the Y start point to allow the correct rendering of the ermor bar
+    //Fix the Y start point to allow the correct rendering of the armor bar
     @Deprecated
     public void fixArmors(int rows, int spacing){
         int armorHight;
