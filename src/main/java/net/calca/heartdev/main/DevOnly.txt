@@ -11,23 +11,10 @@
 1) Variabile che tiene conto di TUTTA la quantità di vita attualmente presente nel player, quindi anche vite extra
 2) Variabile che tenga, quindi conto, del fatto se il giocatore ha o meno un mezzo cuore o no.
 
--> Va fatto un controllo a livello Server side, quasi, o comunque di tutti le istanze client dei giocatori all'interno del mondo. Siccome la vita si modifica solo a me
-e non a Nicola Dio Porco.
-
 || FATTO |
 Ho spostato tutte le variabili in modo che siano universali, però c'è un problema con l'absorption siccome genera, prima di generare i cuori pieni,
 vengono generati solo dei container, tanti quanti i cuori pieni. Quindi se ho l'effetto di asbroptino livvello 0, genererra prima 2 curoi dontainer
 e dopodiche 2 cuori pieni.
 
-|| NUOVI PROBLEMI E POSSIBILI RISOLUZIONI ||
-Ho pensato di spostare tutto con il sistema di serializzazione / deserializzazione che permette il salvataggio locale per ogni giocatore delle variabili.
-Inoltre mi da un portale di accesso al server side tramite cui voglio poter accedere al client di tutti i giocatori del mondo.
-
-\\  Rimasto a \\
-Entro nel mondo creandolo nuovo, funziona al 100% per quel che mi riguarda ()da fare tutti quanti i test()
--> Sembra che il framerate si riduca quando sdetVariables è messo su EntityTic (da mettere preferibilemnte su PlayerTick e solo serverSide).
--> Se si esce dal mondo essendo in survivor, non è possibile rintrare a causa di una NullPointerExeption che dice che this.container.toStrin() = null.
-(prova a farlo e guarda bene l'errore)
--> Uscendo dal mondo (in survivor o in creative) richiede davvero molto per per salvare i dati.
--> Se si esce dal mondo in creative sembra essere possibile rientrare dopo aver tentato più volte: le prime si crasha ma sucessivamente si riesce a rientrare.
-si crasha per semplice "Lost connection, Discconect".
+|| DA FARE ||
+-> Un sistema che attivi il rendering della vita SOLAMENTE QUANDO NECESSARIO (definire NECESSARIO)

@@ -375,7 +375,7 @@ public final class HealthBarPersonalVariables {
             nbt.putInt("reg_cooldown",              regen.reg_cooldown);
             nbt.putInt("reg_yOffset",               regen.reg_yOffset);
 
-            NBTHealper.putCustomContainer(nbt, "container", resources.CONTAINER);
+            NBTHealper.putCustomContainer(nbt, "CONTAINER", resources.CONTAINER);
             NBTHealper.putCustomHeartType(nbt, "normal_hearts", resources.HEARTS);
             NBTHealper.putCustomHeartType(nbt, "poisoned_hearts", resources.POISONED_HEARTS);
             NBTHealper.putCustomHeartType(nbt, "withered_hearts", resources.WITHERED_HEARTS);
@@ -426,6 +426,7 @@ public final class HealthBarPersonalVariables {
 
 
             return nbt;
+
         }
 
         @Override
@@ -493,7 +494,7 @@ public final class HealthBarPersonalVariables {
             regen.reg_cooldown      = nbt.getInt("reg_cooldown");
             regen.reg_yOffset      = nbt.getInt("reg_yOffset");
 
-            resources.CONTAINER = NBTHealper.getCustomContainer(nbt, "container");
+            resources.CONTAINER = NBTHealper.getCustomContainer(nbt, "CONTAINER");
             resources.HEARTS = NBTHealper.getCustomHeartType(nbt, "normal_hearts");
             resources.POISONED_HEARTS = NBTHealper.getCustomHeartType(nbt, "poisoned_hearts");
             resources.WITHERED_HEARTS = NBTHealper.getCustomHeartType(nbt, "withered_hearts");
@@ -541,6 +542,7 @@ public final class HealthBarPersonalVariables {
             resources.absorbing_half_heart      = ResourceLocation.parse(nbt.getString("absorbing_half_heart"));
             resources.hardcore_absorbing_full_heart      = ResourceLocation.parse(nbt.getString("hardcore_absorbing_full_heart"));
             resources.hardcore_absorbing_half_heart      = ResourceLocation.parse(nbt.getString("hardcore_absorbing_half_heart"));
+
 
         }
 

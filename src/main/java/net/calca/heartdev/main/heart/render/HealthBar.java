@@ -97,25 +97,27 @@ public class HealthBar {
     public static final HealthBar HEALTH_INSTANCE = new HealthBar(); //Class instance
 
     //Check whether or not the event is actually rendering the health bar and nothing else, then it runs the rest of the code
-    public void shouldRenderHealthBar(RenderGuiLayerEvent.Pre event){
+    public void shouldRenderHealthBar(RenderGuiLayerEvent.Pre event) {
 
         for (Player player : HealthBar.HEALTH_INSTANCE.mc.level.players()) {
-        if (event.isCanceled()
-                || mc.options.hideGui
-                || !Objects.requireNonNull(mc.gameMode).canHurtPlayer()
-                || !event.getName().equals(VanillaGuiLayers.PLAYER_HEALTH)
-                || !(mc.getCameraEntity() instanceof LocalPlayer localPlayer)) {
-            return;
-        }
+            if (event.isCanceled()
+                    || mc.options.hideGui
+                    || !Objects.requireNonNull(mc.gameMode).canHurtPlayer()
+                    || !event.getName().equals(VanillaGuiLayers.PLAYER_HEALTH)
+                    || !(mc.getCameraEntity() instanceof LocalPlayer localPlayer)) {
+                return;
+            }
             event.setCanceled(true); // Deve cancellare solo quando necessario qunidi fare un metodo aparte che comprenda se cancellare o meno
 
             HealthBarPersonalVariables.PlayerVariables playerVars = HealthBarGlobalVariables.getPlayerVariables(localPlayer);
 
-            renderHealthBar(event, player, playerVars);
+            if (localPlayer.tickCount > -1) {
+                renderHealthBar(event, player, playerVars);
+                playerVars.gui.absorptionSlotsList = new HashSet<>(); //Reset qua perche cosi tutti i metodi di render, anche quelli di vite+, comunicano tra loro.
+            }
 
-            playerVars.gui.absorptionSlotsList = new HashSet<>(); //Reset qua perche cosi tutti i metodi di render, anche quelli di vite+, comunicano tra loro.
-    }
         }
+    }
 
     /**
      * health -> red_Amount

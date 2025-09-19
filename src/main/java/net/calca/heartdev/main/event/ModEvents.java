@@ -43,10 +43,17 @@ public class ModEvents{
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event){
+        /*
         if (event.getEntity() instanceof ServerPlayer serverPlayer){
             HealthBarPersonalVariables.PlayerVariables playerVariables = HealthBarGlobalVariables.getPlayerVariables(serverPlayer);
             HealthComponent healthComponent = new HealthComponent(serverPlayer);
             healthComponent.setHeartType(HealthTypes.ModdedTextures.ORANGE_HEARTS);
+            HealthBar.HEALTH_INSTANCE.buildTextures(serverPlayer, playerVariables);
+        }
+
+         */
+        if (event.getEntity() instanceof ServerPlayer serverPlayer){
+            HealthBarPersonalVariables.PlayerVariables playerVariables = HealthBarGlobalVariables.getPlayerVariables(serverPlayer);
             HealthBar.HEALTH_INSTANCE.buildTextures(serverPlayer, playerVariables);
         }
     }
