@@ -176,7 +176,7 @@ public class HealthBar {
         gui.nowTick = Util.getMillis(); //In game current tick
 
         // Regeneration parameter
-        regen.reg_visibleHearts = Mth.ceil((player.getMaxHealth() + player.getAbsorptionAmount()) / 2f); // UNKOWN
+        regen.reg_visibleHearts = Mth.ceil((player.getMaxHealth() + health.abs_Amount) / 2f); // UNKOWN
         regen.reg_ticksSinceStart = (int) (gui.tickCount - gui.regenStartTick); // UNKOWN
         regen.reg_waveDuration = regen.reg_visibleHearts * regen.reg_ticksPerHeart; //Duration of the wave like effect cause by the regeneration effect.
 
@@ -449,7 +449,7 @@ public class HealthBar {
         HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVars.gui;
 
         for (int j = gui.abs_Slots - 1; j >= 0; j--) {
-            int slotIndex = health.tot_MaxHearts + j; //The slot is going to be rendered. It starts from maxHearts because those are the normal life slots.
+            int slotIndex = health.red_MaxHearts + j; //The slot is going to be rendered. It starts from maxHearts because those are the normal life slots.
 
             //When this variable is true, this block will fire
             //Because life types will collapse, it is no longer needed to base the slotIndex on maxHearts, but it is needed to base on currentHearts.
@@ -489,15 +489,15 @@ public class HealthBar {
                 halfAbs = health.abs_HasHalf && j == gui.abs_Slots - 1;
                 //If the player has at least 2 absorption hearts (1 isnt considered since it is used just for rendering the half heart) and
                 //the is not being rendered the first slot (j > 0) or the player has and half normal heart, this block will fire
-                if (health.abs_Amount-1 > 0 && (j > 0 || health.red_HasHalf)){
+                if (health.abs_Amount-1 > 0 && (j > 0 || halfAbs)){
                     int key = line * 10 + col; //The slot value
                     gui.absorptionSlotsList.add(key); //The slot this happens to be true will be saved inside the absorptionSlots list, that will be later used.
-                    renderAbsorption(player, playerVars, gfx, x, y); //Finally the absorption heart is rendered
+                    renderAbsorption(player, playerVars, gfx, x, y, halfAbs); //Finally the absorption heart is rendered
                 }
             }else{ //This will basically fire when the player does not have a full heart.
                 int key = line * 10 + col; //The slot value
                 gui.absorptionSlotsList.add(key);//The slot will be saved inside the absorptionSlots list, that will be later used.
-                renderAbsorption(player, playerVars, gfx, x, y); //Finally the absorption heart is rendered
+                renderAbsorption(player, playerVars, gfx, x, y, halfAbs); //Finally the absorption heart is rendered
             }
 
         }
@@ -629,7 +629,7 @@ public class HealthBar {
     }
     //Render the absorption hearts
     @Deprecated
-    public void renderAbsorption(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables, GuiGraphics gfx, int x, int y) {
+    public void renderAbsorption(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables, GuiGraphics gfx, int x, int y, boolean halfAbs) {
         HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVariables.health;
         HealthBarPersonalVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
 
@@ -639,7 +639,7 @@ public class HealthBar {
         gfx.blit(bg, x, y, 0, 0, 9,9, 9,9);
 
 
-        ResourceLocation texA = health.red_HasHalf
+        ResourceLocation texA = halfAbs
                 ? HealthBarGlobalVariables.getSprite(player, playerVariables.isHardcore, true, false, true)
                 : HealthBarGlobalVariables.getSprite(player, playerVariables.isHardcore, false, false, true);
 
@@ -758,7 +758,7 @@ public class HealthBar {
 
         regen.reg_ticksPerHeart = 1;
         regen.reg_cooldown = 15;
-        regen.reg_cooldown = -2;
+        regen.reg_yOffset = -2;
 
         gui.spaceBetweenRowsMax = 10;
         gui.spaceBetweenRowsMin = 7;

@@ -54,6 +54,7 @@ public class ModEvents{
          */
         if (event.getEntity() instanceof ServerPlayer serverPlayer){
             HealthBarPersonalVariables.PlayerVariables playerVariables = HealthBarGlobalVariables.getPlayerVariables(serverPlayer);
+            HealthBar.HEALTH_INSTANCE.reset(serverPlayer, playerVariables);
             HealthBar.HEALTH_INSTANCE.buildTextures(serverPlayer, playerVariables);
         }
     }
