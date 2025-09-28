@@ -11,10 +11,9 @@
 1) Variabile che tiene conto di TUTTA la quantità di vita attualmente presente nel player, quindi anche vite extra
 2) Variabile che tenga, quindi conto, del fatto se il giocatore ha o meno un mezzo cuore o no.
 
-|| FATTO |
-Ho spostato tutte le variabili in modo che siano universali, però c'è un problema con l'absorption siccome genera, prima di generare i cuori pieni,
-vengono generati solo dei container, tanti quanti i cuori pieni. Quindi se ho l'effetto di asbroptino livvello 0, genererra prima 2 curoi dontainer
-e dopodiche 2 cuori pieni.
 
 || DA FARE ||
 -> Un sistema che attivi il rendering della vita SOLAMENTE QUANDO NECESSARIO (definire NECESSARIO)
+-> Sistemare minor bugs del rendering della salute:
+    -> Quando prendo danni e mi rigenero contemporaneamente i due blinking si sommano invece di separarsi e refreshare i blinking heart
+    -> I blinking heart si refreshano dopo molto tempo, sommandosi ai danni causati in concatenazione ai precedenti.

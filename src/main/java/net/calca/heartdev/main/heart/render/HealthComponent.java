@@ -20,7 +20,7 @@ public class HealthComponent{
         }
 
         this.playerVars = (this.serverPlayer != null)
-                ? HealthBarGlobalVariables.getPlayerVariables(this.serverPlayer)
+                ? HealthBarHelper.getPlayerVariables(this.serverPlayer)
                 : null;
     }
 

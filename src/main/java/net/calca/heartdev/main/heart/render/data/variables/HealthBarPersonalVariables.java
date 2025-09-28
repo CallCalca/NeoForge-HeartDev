@@ -191,6 +191,7 @@ public final class HealthBarPersonalVariables {
         public boolean player_blinking;
         public boolean isHardcore;
 
+        //Health variables
         public class HealthValues {
             public int red_LifeNumber = -2;
             public int abs_LifeNumber = -1;
@@ -214,6 +215,7 @@ public final class HealthBarPersonalVariables {
             public int tot_Hearts;
             public int tot_MaxHearts;
         }
+        //Gui Variables
         public class GuiValues {
             public long lastHealthTime = 0; // UNKOWN
             public long healthBlinkTime = 0; // UNKOWN
@@ -241,6 +243,7 @@ public final class HealthBarPersonalVariables {
             public boolean collapseDifferentLifeTypes = false;
             public Set<Integer> absorptionSlotsList = new HashSet<>(); //List to check for absorption hearts UNKOWN
         }
+        //Variables responsible for rendering regen event
         public class RegenEventValues {
             public int reg_ticksPerHeart = 1;
             public int reg_visibleHearts;
@@ -249,6 +252,7 @@ public final class HealthBarPersonalVariables {
             public int reg_cooldown = 15;
             public int reg_yOffset = -2;
         }
+        //Variables containeing textures path
         public class ResourceValues {
             public CustomContainerType CONTAINER = null;
             public CustomHeartType HEARTS = null;

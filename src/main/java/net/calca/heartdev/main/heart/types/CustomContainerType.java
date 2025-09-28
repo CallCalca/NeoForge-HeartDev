@@ -1,6 +1,5 @@
 package net.calca.heartdev.main.heart.types;
 
-import net.calca.heartdev.main.heart.render.HealthBarGlobalVariables;
 import net.calca.heartdev.main.heart.render.data.variables.HealthBarPersonalVariables;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;

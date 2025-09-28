@@ -3,12 +3,11 @@ package net.calca.heartdev.main.heart.render;
 import net.calca.heartdev.main.heart.render.data.variables.HealthBarPersonalVariables;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-public class HealthBarGlobalVariables {
+public class HealthBarHelper {
     public static HealthBarPersonalVariables.PlayerVariables getPlayerVariables(LivingEntity livingEntity){
         HealthBarPersonalVariables.PlayerVariables var = null;
         if (livingEntity instanceof Player player){
