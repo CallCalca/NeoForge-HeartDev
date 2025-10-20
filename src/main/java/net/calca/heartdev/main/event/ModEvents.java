@@ -28,7 +28,7 @@ public class ModEvents{
         HealthComponent healthComponent = new HealthComponent(player);
 
         healthComponent.resetAll();
-            HealthBarResourceBuilding.buildTextures(player, healthComponent.playerVars);
+            HealthBarResourceBuilding.buildTextures(healthComponent);
 
     }
 
