@@ -1,7 +1,7 @@
 package net.calca.heartdev;
 
 import net.calca.heartdev.main.effect.ModEffects;
-import net.calca.heartdev.main.heart.render.data.variables.HealthBarPersonalVariables;
+import net.calca.heartdev.main.heart.render.data.variables.HealthBarVariables;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -60,7 +60,7 @@ public class HeartDev {
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::registerNetworking);
 
-        HealthBarPersonalVariables.ATTACHMENT_TYPES.register(modEventBus);
+        HealthBarVariables.ATTACHMENT_TYPES.register(modEventBus);
 
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us

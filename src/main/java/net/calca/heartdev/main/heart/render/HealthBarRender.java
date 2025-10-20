@@ -3,8 +3,8 @@ package net.calca.heartdev.main.heart.render;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.calca.heartdev.main.effect.ModEffects;
-import net.calca.heartdev.main.heart.render.data.variables.HealthBarPersonalVariables;
-import net.calca.heartdev.main.heart.types.HealthTypes;
+import net.calca.heartdev.main.heart.render.data.variables.HealthBarVariables;
+import net.calca.heartdev.main.heart.types.TextureTypes;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -27,11 +27,11 @@ import java.util.Objects;
  * Colorful Hearts license = MIT license (in date 16/06/2025 for version 1.21.1 NeoForge)
  * Colorful Hearts author = Terrails
  */
-public class HealthBar {
+public class HealthBarRender {
     public static class PreSets {
 
         public final ServerPlayer player;
-        public final HealthBarPersonalVariables.PlayerVariables.ResourceValues resources;
+        public final HealthBarVariables.PlayerVariables.ResourceValues resources;
 
         public PreSets(Player player) {
             if (player instanceof ServerPlayer serverPlayer1){
@@ -40,7 +40,7 @@ public class HealthBar {
                 this.player = null;
             }
             this.resources = (this.player != null)
-                    ? HealthBarHelper.getPlayerVariables(player).resources
+                    ? HealthBarResourceBuilding.getPlayerVariables(player).resources
                     : null;
         }
 
@@ -48,56 +48,56 @@ public class HealthBar {
             if (player.hasEffect(ModEffects.ORANGE_HEARTS)){
                 return;
             }
-            resources.HEARTS = HealthTypes.ModdedTextures.ORANGE_HEARTS;
+            resources.HEARTS = TextureTypes.ModdedTextures.ORANGE_HEARTS;
 
         }
         public void activateYellowEffect (){
             if (player.hasEffect(ModEffects.YELLOW_HEARTS)){
                 return;
             }
-            resources.HEARTS = HealthTypes.ModdedTextures.YELLOW_HEARTS;
+            resources.HEARTS = TextureTypes.ModdedTextures.YELLOW_HEARTS;
         }
         public void activateGreenEffect (){
             if (player.hasEffect(ModEffects.GREEN_HEARTS)){
                 return;
             }
-            resources.HEARTS = HealthTypes.ModdedTextures.GREEN_HEARTS;
+            resources.HEARTS = TextureTypes.ModdedTextures.GREEN_HEARTS;
         }
         public void activateLightBlueEffect (){
             if (player.hasEffect(ModEffects.LIGHT_BLUE_HEARTS)){
                 return;
             }
-            resources.HEARTS = HealthTypes.ModdedTextures.LIGHT_BLUE_HEARTS;
+            resources.HEARTS = TextureTypes.ModdedTextures.LIGHT_BLUE_HEARTS;
         }
         public void activateBlueEffect (){
             if (player.hasEffect(ModEffects.BLUE_HEARTS)){
                 return;
             }
-            resources.HEARTS = HealthTypes.ModdedTextures.BLUE_HEARTS;
+            resources.HEARTS = TextureTypes.ModdedTextures.BLUE_HEARTS;
         }
         public void activatePurpleEffect (){
             if (player.hasEffect(ModEffects.PURPLE_HEARTS)){
                 return;
             }
-            resources.HEARTS = HealthTypes.ModdedTextures.PURPLE_HEARTS;
+            resources.HEARTS = TextureTypes.ModdedTextures.PURPLE_HEARTS;
         }
         public void activateMagentaEffect (){
             if (player.hasEffect(ModEffects.MAGENTA_HEARTS)){
                 return;
             }
-            resources.HEARTS = HealthTypes.ModdedTextures.MAGENTA_HEARTS;
+            resources.HEARTS = TextureTypes.ModdedTextures.MAGENTA_HEARTS;
         }
 
     }
     @Deprecated
     public final Minecraft mc = Minecraft.getInstance(); // Minecraft instance
 
-    public static final HealthBar HEALTH_INSTANCE = new HealthBar(); //Class instance
+    public static final HealthBarRender HEALTH_INSTANCE = new HealthBarRender(); //Class instance
 
     //Check whether or not the event is actually rendering the health bar and nothing else, then it runs the rest of the code
     public void shouldRenderHealthBar(RenderGuiLayerEvent.Pre event) {
 
-        for (Player player : HealthBar.HEALTH_INSTANCE.mc.level.players()) {
+        for (Player player : HealthBarRender.HEALTH_INSTANCE.mc.level.players()) {
             if (event.isCanceled()
                     || mc.options.hideGui
                     || !Objects.requireNonNull(mc.gameMode).canHurtPlayer()
@@ -105,15 +105,16 @@ public class HealthBar {
                     || !(mc.getCameraEntity() instanceof LocalPlayer localPlayer)) {
                 return;
             }
-            event.setCanceled(true); // Deve cancellare solo quando necessario qunidi fare un metodo aparte che comprenda se cancellare o meno
+            HealthBarVariables.PlayerVariables playerVars = HealthBarResourceBuilding.getPlayerVariables(localPlayer);
+            if (playerVars.should_render) {
+                event.setCanceled(true); // Deve cancellare solo quando necessario qunidi fare un metodo aparte che comprenda se cancellare o meno
 
-            HealthBarPersonalVariables.PlayerVariables playerVars = HealthBarHelper.getPlayerVariables(localPlayer);
 
-            if (localPlayer.tickCount > -1) {
-                renderHealthBar(event, player, playerVars);
-                playerVars.gui.absorptionSlotsList = new HashSet<>(); //Reset qua perche cosi tutti i metodi di render, anche quelli di vite+, comunicano tra loro.
+                if (localPlayer.tickCount > -1) {
+                    renderHealthBar(event, player, playerVars);
+                    playerVars.gui.absorptionSlotsList = new HashSet<>(); //Reset qua perche cosi tutti i metodi di render, anche quelli di vite+, comunicano tra loro.
+                }
             }
-
         }
     }
 
@@ -136,11 +137,10 @@ public class HealthBar {
      * gfx -> guiGraphics
      * now -> nowTick
      */
-    public void setVariables(Player player){
-        HealthBarPersonalVariables.PlayerVariables playerVars = HealthBarHelper.getPlayerVariables(player);
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVars.health;
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVars.gui;
-        HealthBarPersonalVariables.PlayerVariables.RegenEventValues regen = playerVars.regen;
+    public void setVariables(HealthBarVariables.PlayerVariables playerVars, Player player){
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVars.health;
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVars.gui;
+        HealthBarVariables.PlayerVariables.RegenEventValues regen = playerVars.regen;
 
 
         //Misc
@@ -222,7 +222,7 @@ public class HealthBar {
 
         //After check
         checks(player);
-        playerVars.player_takingDamage = health.red_Amount < gui.displayHealth; //Is the player taking damage on this tick?
+        playerVars.player_takingDamage = health.red_Amount < gui.displayHealth; //Is the player taking damage in this tick?
         playerVars.player_takingRegen = health.red_Amount > gui.displayHealth; //Is the player getting healed in this tick?
         playerVars.player_blinking = false; //Is the health bar blinking?
 
@@ -235,11 +235,12 @@ public class HealthBar {
         gui.lastHealth = health.red_Amount;
         gui.regenerating --;
 
+        //No syncing here
 
     }
 
     private void checks(Player player){
-        HealthBarPersonalVariables.PlayerVariables playerVariables = HealthBarHelper.getPlayerVariables(player);
+        HealthBarVariables.PlayerVariables playerVariables = HealthBarResourceBuilding.getPlayerVariables(player);
 
         // -- 1) Updating Blinking state
         updateBlinkingState(player, playerVariables);
@@ -248,15 +249,15 @@ public class HealthBar {
         regenEventHandler(player, playerVariables);
 
         // Refreshing
-        refreshDisplayHealth(player, playerVariables);
+        refreshDisplayHealth(playerVariables);
     }
 
     //Aumenta la quantità di vita parziale fino alla vita precedente a quella che deve essere renderizzata, così da ottenere la location in cui renderizzarla.
     public void setPartialHealthAmountVariable(Player player, int healthNumber){
-        HealthBarPersonalVariables.PlayerVariables playerVariables = HealthBarHelper.getPlayerVariables(player);
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVariables.health;
-        int localNormalLifeNumber = health.red_LifeNumber;
-        int localAbsorptionLifeNumber = health.abs_LifeNumber;
+        HealthBarVariables.PlayerVariables playerVariables = HealthBarResourceBuilding.getPlayerVariables(player);
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVariables.health;
+        int localNormalLifeNumber = health.red_LifePriority;
+        int localAbsorptionLifeNumber = health.abs_LifePriority;
         int returnAmount = 0;
 
         if (localNormalLifeNumber < healthNumber){
@@ -275,13 +276,13 @@ public class HealthBar {
 
     }
 
-    //Complex method version
+
     //Contains all the rendering system itself
-    public void renderHealthBar(RenderGuiLayerEvent.Pre event, Player player, HealthBarPersonalVariables.PlayerVariables playerVars) {
+    public void renderHealthBar(RenderGuiLayerEvent.Pre event, Player player, HealthBarVariables.PlayerVariables playerVars) {
 
         final RandomSource random = RandomSource.create(); // UNKOWN
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVars.health;
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVars.gui;
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVars.health;
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVars.gui;
 
         GuiGraphics gfx = event.getGuiGraphics(); //Graphic
 
@@ -322,9 +323,9 @@ public class HealthBar {
      *Last change in version: 1.1.4-neoforge
      */
     //Contains the cycle to render the absorption life type hearts
-    public void renderAbsCycle(Player player, HealthBarPersonalVariables.PlayerVariables playerVars, GuiGraphics gfx, int startY, int startX){
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVars.health;
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVars.gui;
+    public void renderAbsCycle(Player player, HealthBarVariables.PlayerVariables playerVars, GuiGraphics gfx, int startY, int startX){
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVars.health;
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVars.gui;
 
         for (int j = gui.abs_Slots - 1; j >= 0; j--) {
             int slotIndex = health.red_MaxHearts + j; //The slot is going to be rendered. It starts from maxHearts because those are the normal life slots.
@@ -386,10 +387,10 @@ public class HealthBar {
      *Last change in version: 1.1.4-neoforge
      */
     //Contains the for cycle to render the normal life type hearts
-    public void renderRedCycle(Player player, HealthBarPersonalVariables.PlayerVariables playerVars, RandomSource random, GuiGraphics gfx, int startY, int startX) {
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVars.health;
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVars.gui;
-        HealthBarPersonalVariables.PlayerVariables.RegenEventValues regen = playerVars.regen;
+    public void renderRedCycle(Player player, HealthBarVariables.PlayerVariables playerVars, RandomSource random, GuiGraphics gfx, int startY, int startX) {
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVars.health;
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVars.gui;
+        HealthBarVariables.PlayerVariables.RegenEventValues regen = playerVars.regen;
 
         for (int i = health.tot_MaxHearts - 1; i >= 0; i--) {
             int line = i / 10; //The line in which this particular slot is in
@@ -426,34 +427,11 @@ public class HealthBar {
 
     }
 
-    //Set all necessary variable responsible for heart rendering
-    public void buildTextures(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables) {
-        HealthBarPersonalVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
-        if (resources.CONTAINER != null) resources.CONTAINER.buildResources(player, playerVariables);
-        else HealthBarHelper.buildResourcesWithVanilla(HealthTypes.VanillaHeartTypes.CONTANER, player);
-
-        if (resources.HEARTS != null) resources.HEARTS.buildResources(player, playerVariables);
-        else HealthBarHelper.buildResourcesWithVanilla(HealthTypes.VanillaHeartTypes.NORMAL, player);
-
-        if (resources.POISONED_HEARTS != null) resources.POISONED_HEARTS.buildResources(player, playerVariables);
-        else HealthBarHelper.buildResourcesWithVanilla(HealthTypes.VanillaHeartTypes.POISONED, player);
-
-        if (resources.WITHERED_HEARTS != null) resources.WITHERED_HEARTS.buildResources(player, playerVariables);
-        else HealthBarHelper.buildResourcesWithVanilla(HealthTypes.VanillaHeartTypes.WITHERED, player);
-
-        if (resources.FROZEN_HEARTS != null) resources.FROZEN_HEARTS.buildResources(player, playerVariables);
-        else HealthBarHelper.buildResourcesWithVanilla(HealthTypes.VanillaHeartTypes.FROZEN, player);
-
-        if (resources.ABSORBING_HEARTS != null) resources.ABSORBING_HEARTS.buildResources(player, playerVariables);
-        else HealthBarHelper.buildResourcesWithVanilla(HealthTypes.VanillaHeartTypes.ABSORBING, player);
-
-        //There is no need to sync since the syncing is made inside buildResourcesWithVanilla and inside buildResources
-    }
 
     //Render the container, heart background.
-    public void renderContainer(HealthBarPersonalVariables.PlayerVariables playerVariables, GuiGraphics gfx, int x, int y) {
+    public void renderContainer(HealthBarVariables.PlayerVariables playerVariables, GuiGraphics gfx, int x, int y) {
         ResourceLocation heartsBackground;
-        HealthBarPersonalVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
 
     if (playerVariables.isHardcore) {
         if (playerVariables.player_blinking){
@@ -477,9 +455,9 @@ public class HealthBar {
     }
 
     //Render the blinking hearts, cause by: taking damage
-    public void renderBlinking(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables, GuiGraphics gfx, int i, int x, int y) {
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVariables.health;
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
+    public void renderBlinking(Player player, HealthBarVariables.PlayerVariables playerVariables, GuiGraphics gfx, int i, int x, int y) {
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVariables.health;
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
         if (playerVariables.player_blinking && playerVariables.player_takingDamage) {
             float oldHealth = Math.min(gui.displayHealth, health.red_MaxAmount);
 
@@ -490,9 +468,9 @@ public class HealthBar {
             ResourceLocation blinkTex = null;
 
             if (oldHealth >= slotMax && health.red_Amount < slotMax) {
-                blinkTex = HealthBarHelper.getSprite(player, playerVariables.isHardcore, false, true, false);
+                blinkTex = HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, false, true, false);
             } else if (oldHealth >= slotMid && health.red_Amount < slotMid) {
-                blinkTex = HealthBarHelper.getSprite(player, playerVariables.isHardcore, true, true, false);
+                blinkTex = HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, true, true, false);
             }
 
             if (blinkTex != null) {
@@ -504,9 +482,9 @@ public class HealthBar {
     }
 
     //Render the absorption hearts
-    public void renderAbs(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables, GuiGraphics gfx, int x, int y, boolean halfAbs) {
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVariables.health;
-        HealthBarPersonalVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+    public void renderAbs(Player player, HealthBarVariables.PlayerVariables playerVariables, GuiGraphics gfx, int x, int y, boolean halfAbs) {
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVariables.health;
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
 
         // scegli la texture di assorbimento
         ResourceLocation bg = resources.container;
@@ -515,8 +493,8 @@ public class HealthBar {
 
 
         ResourceLocation texA = halfAbs
-                ? HealthBarHelper.getSprite(player, playerVariables.isHardcore, true, false, true)
-                : HealthBarHelper.getSprite(player, playerVariables.isHardcore, false, false, true);
+                ? HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, true, false, true)
+                : HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, false, false, true);
 
         // disegna cuore di assorbimento
         RenderSystem.setShaderTexture(0, texA);
@@ -526,13 +504,13 @@ public class HealthBar {
     }
 
     //Render the normal hearts
-    public void renderRed(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables, GuiGraphics gfx, int i, int x, int y) {
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVariables.health;
+    public void renderRed(Player player, HealthBarVariables.PlayerVariables playerVariables, GuiGraphics gfx, int i, int x, int y) {
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVariables.health;
         ResourceLocation heartTex = null;
         if (i < health.red_FullHearts) {
-            heartTex = HealthBarHelper.getSprite(player, playerVariables.isHardcore, false, false, false);
+            heartTex = HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, false, false, false);
         } else if (i == health.red_FullHearts && health.red_HasHalf) {
-            heartTex = HealthBarHelper.getSprite(player, playerVariables.isHardcore, true, false, false);
+            heartTex = HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, true, false, false);
         }
 
         if (heartTex != null) {
@@ -544,9 +522,9 @@ public class HealthBar {
     }
 
     //Update the blinking state to simulate vanilla blinking animation
-    public void updateBlinkingState(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables) {
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVariables.health;
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
+    public void updateBlinkingState(Player player, HealthBarVariables.PlayerVariables playerVariables) {
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVariables.health;
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
 
         if (health.red_Amount < gui.lastHealth && player.invulnerableTime > 0) {
             gui.lastHealthTime = gui.nowTick;
@@ -558,14 +536,13 @@ public class HealthBar {
             gui.healthBlinkTime = gui.tickCount + 6 + gui.regenerating;
             gui.blinkStartTick = gui.tickCount;
         }
-
-        playerVariables.syncPlayerVariables(player); //Syncing
+        //No syncing
     }
 
     //Check if the player has regeneration effect and, based on that, activate the regeneration animations
-    public void regenEventHandler(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables) {
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
-        HealthBarPersonalVariables.PlayerVariables.RegenEventValues regen = playerVariables.regen;
+    public void regenEventHandler(Player player, HealthBarVariables.PlayerVariables playerVariables) {
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
+        HealthBarVariables.PlayerVariables.RegenEventValues regen = playerVariables.regen;
 
         if (!player.hasEffect(MobEffects.REGENERATION)) {
             gui.regenIndex = -1;
@@ -584,25 +561,25 @@ public class HealthBar {
             gui.regenIndex      = -1;
         }
 
-        playerVariables.syncPlayerVariables(player); //Syncing
+        //No syncing
 
     }
 
     //Refresh health value to match the current
-    public void refreshDisplayHealth(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables) {
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
-        HealthBarPersonalVariables.PlayerVariables.HealthValues health = playerVariables.health;
+    public void refreshDisplayHealth(HealthBarVariables.PlayerVariables playerVariables) {
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
+        HealthBarVariables.PlayerVariables.HealthValues health = playerVariables.health;
 
         if (gui.nowTick - gui.lastHealthTime > 1000L) {
             gui.displayHealth = health.red_Amount;
             gui.lastHealthTime = gui.nowTick;
-            playerVariables.syncPlayerVariables(player); //Syncing
+            //No syncing
         }
     }
 
     //Fix the Y start point to allow the correct rendering of the armor bar
-    public void fixArmors(HealthBarPersonalVariables.PlayerVariables playerVariables){
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
+    public void fixArmors(HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
         int armorHight;
         armorHight = 49 + (gui.barRows - 1) * gui.spacing;
 
@@ -610,31 +587,6 @@ public class HealthBar {
         mc.gui.leftHeight = armorHight;
 
         //No need to sync
-    }
-
-    //Reset variables to allow for other values to be used.
-    public void reset(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables){
-        HealthBarPersonalVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
-        HealthBarPersonalVariables.PlayerVariables.RegenEventValues regen = playerVariables.regen;
-        HealthBarPersonalVariables.PlayerVariables.GuiValues gui = playerVariables.gui;
-        resources.CONTAINER = null;
-        resources.HEARTS = null;
-        resources.POISONED_HEARTS = null;
-        resources.WITHERED_HEARTS = null;
-        resources.FROZEN_HEARTS = null;
-        resources.ABSORBING_HEARTS = null;
-
-        gui.hideEmptyHearts = false;
-        gui.collapseDifferentLifeTypes = false;
-
-        regen.reg_ticksPerHeart = 1;
-        regen.reg_cooldown = 15;
-        regen.reg_yOffset = -2;
-
-        gui.spaceBetweenRowsMax = 10;
-        gui.spaceBetweenRowsMin = 7;
-
-        playerVariables.syncPlayerVariables(player); //Syncing
     }
 
 }

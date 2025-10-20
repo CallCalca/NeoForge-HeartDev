@@ -1,9 +1,9 @@
 package net.calca.heartdev.main.heart.types;
 
-import net.calca.heartdev.main.heart.render.data.variables.HealthBarPersonalVariables;
+import net.calca.heartdev.main.heart.render.data.variables.HealthBarVariables;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 
 public record CustomContainerType(
         ResourceLocation container,
@@ -14,15 +14,15 @@ public record CustomContainerType(
         ResourceLocation containerHardcoreBlinkingHealing
 ) {
 
-    public void buildResources(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables){
-        HealthBarPersonalVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+    public void buildResources(LivingEntity LivingEntity, HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
         resources.container = this.container;
         resources.container_blinking_damage = this.containerBlinkingDamage;
         resources.container_blinking_healing = this.containerBlinkingHealing;
         resources.hardcore_container = this.containerHardcore;
         resources.hardcore_container_blinking_damage = this.containerBlinkingDamage;
         resources.hardcore_container_blinking_healing = this.containerBlinkingHealing;
-        playerVariables.syncPlayerVariables(player);
+        playerVariables.syncPlayerVariables(LivingEntity);
     }
     public CompoundTag toNbt() {
         CompoundTag t = new CompoundTag();

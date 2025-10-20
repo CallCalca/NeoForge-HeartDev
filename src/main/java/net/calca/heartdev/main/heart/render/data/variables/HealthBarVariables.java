@@ -4,8 +4,6 @@ package net.calca.heartdev.main.heart.render.data.variables;
 import net.calca.heartdev.HeartDev;
 import net.calca.heartdev.main.heart.types.CustomContainerType;
 import net.calca.heartdev.main.heart.types.CustomHeartType;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
@@ -18,7 +16,6 @@ import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -31,13 +28,12 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
-public final class HealthBarPersonalVariables {
+public final class HealthBarVariables {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, HeartDev.MOD_ID);
     public static final Supplier<AttachmentType<PlayerVariables>> PLAYER_VARIABLES = ATTACHMENT_TYPES.register("player_variables", () -> AttachmentType.serializable(() -> new PlayerVariables()).build());
 
@@ -72,13 +68,14 @@ public final class HealthBarPersonalVariables {
             PlayerVariables original = event.getOriginal().getData(PLAYER_VARIABLES);
             PlayerVariables clone = new PlayerVariables();
             if (!event.isWasDeath()) {
+                clone.should_render        =       original.should_render;
                 clone.player_takingDamage        =       original.player_takingDamage;
                 clone.player_takingRegen        =       original.player_takingRegen;
                 clone.player_blinking        =       original.player_blinking;
                 clone.isHardcore        =       original.isHardcore;
 
-                clone.health.red_LifeNumber = original.health.red_LifeNumber;
-                clone.health.abs_LifeNumber = original.health.abs_LifeNumber;
+                clone.health.red_LifePriority = original.health.red_LifePriority;
+                clone.health.abs_LifePriority = original.health.abs_LifePriority;
                 clone.health.extraLifeNumbers = original.health.extraLifeNumbers;
                 clone.health.tot_Amount = original.health.tot_Amount;
                 clone.health.partialHealthAmount = original.health.partialHealthAmount;
@@ -186,6 +183,7 @@ public final class HealthBarPersonalVariables {
     //Player variables - START
     public static class PlayerVariables implements INBTSerializable<CompoundTag> {
         //MISC variables
+        public boolean should_render = false;
         public boolean player_takingDamage;
         public boolean player_takingRegen;
         public boolean player_blinking;
@@ -193,8 +191,8 @@ public final class HealthBarPersonalVariables {
 
         //Health variables
         public class HealthValues {
-            public int red_LifeNumber = -2;
-            public int abs_LifeNumber = -1;
+            public int red_LifePriority = -2;
+            public int abs_LifePriority = -1;
             public int[] extraLifeNumbers = {};
 
             public int tot_Amount = 0;
@@ -320,13 +318,14 @@ public final class HealthBarPersonalVariables {
             CompoundTag nbt = new CompoundTag();
             ListTag listTag = new ListTag();
 
+            nbt.putBoolean("should_render",               should_render);
             nbt.putBoolean("player_takingDamage",               player_takingDamage);
             nbt.putBoolean("player_takingRegen",                player_takingRegen);
             nbt.putBoolean("player_blinking",                   player_blinking);
             nbt.putBoolean("isHardcore",                        isHardcore);
 
-            nbt.putInt("red_LifeNumber",                health.red_LifeNumber);
-            nbt.putInt("abs_LifeNumber",                health.abs_LifeNumber);
+            nbt.putInt("red_LifeNumber",                health.red_LifePriority);
+            nbt.putInt("abs_LifeNumber",                health.abs_LifePriority);
             nbt.putIntArray("extraLifeNumbers",         health.extraLifeNumbers);
             nbt.putInt("tot_Amount",                    health.tot_Amount);
             nbt.putInt("partialHealthAmount",           health.partialHealthAmount);
@@ -435,13 +434,14 @@ public final class HealthBarPersonalVariables {
 
         @Override
         public void deserializeNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
+            should_render      = nbt.getBoolean("should_render");
             player_takingDamage      = nbt.getBoolean("player_takingDamage");
             player_takingRegen      = nbt.getBoolean("player_takingRegen");
             player_blinking      = nbt.getBoolean("player_blinking");
             isHardcore      = nbt.getBoolean("isHardcore");
 
-            health.red_LifeNumber      = nbt.getInt("red_LifeNumber");
-            health.abs_LifeNumber      = nbt.getInt("abs_LifeNumber");
+            health.red_LifePriority = nbt.getInt("red_LifeNumber");
+            health.abs_LifePriority = nbt.getInt("abs_LifeNumber");
             health.extraLifeNumbers      = nbt.getIntArray("extraLifeNumbers");
             health.tot_Amount      = nbt.getInt("tot_Amount");
             health.partialHealthAmount      = nbt.getInt("partialHealthAmount");

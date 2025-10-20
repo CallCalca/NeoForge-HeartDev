@@ -1,22 +1,25 @@
 package net.calca.heartdev.main.heart.render;
 
-import net.calca.heartdev.main.heart.render.data.variables.HealthBarPersonalVariables;
+import net.calca.heartdev.main.heart.render.data.variables.HealthBarVariables;
+import net.calca.heartdev.main.heart.types.CustomContainerType;
+import net.calca.heartdev.main.heart.types.CustomHeartType;
+import net.calca.heartdev.main.heart.types.TextureTypes;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-public class HealthBarHelper {
-    public static HealthBarPersonalVariables.PlayerVariables getPlayerVariables(LivingEntity livingEntity){
-        HealthBarPersonalVariables.PlayerVariables var = null;
+public class HealthBarResourceBuilding {
+    public static HealthBarVariables.PlayerVariables getPlayerVariables(LivingEntity livingEntity){
+        HealthBarVariables.PlayerVariables var = null;
         if (livingEntity instanceof Player player){
-            var = player.getData(HealthBarPersonalVariables.PLAYER_VARIABLES);
+            var = player.getData(HealthBarVariables.PLAYER_VARIABLES);
         }
         return var;
     }
-    public static void buildResourcesWithVanilla(Gui.HeartType heartType, LivingEntity livingEntity){
-        HealthBarPersonalVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
+    protected static void buildResourcesWithVanilla(Gui.HeartType heartType, LivingEntity livingEntity){
+        HealthBarVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
         if (heartType == Gui.HeartType.CONTAINER) {
             playerVars.resources.container = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/container.png");
             playerVars.resources.container_blinking_damage = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/heart/container_blinking.png");
@@ -69,9 +72,65 @@ public class HealthBarHelper {
         playerVars.syncPlayerVariables(livingEntity);
     }
 
+
+    public static CustomHeartType createCustomHeartType(String modID, String heartName){
+        return new CustomHeartType(
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_full.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_full_blinking.png"),
+                //ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_full_blinking.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_half.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_half_blinking.png"),
+                //ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_half_blinking.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_full.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_full_blinking.png"),
+                //ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_full_blinking.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_half.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_half_blinking.png")
+                //ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_half_blinking.png")
+        );
+    }
+    /*
+    public static CustomHeartType createCOMPLEXCustomHeartType(String modID, String heartName){
+        return new CustomHeartType(
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_full.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_full_blinking_damage.png"),
+                //ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_full_blinking_healing.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_half.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_half_blinking_damage.png"),
+                //ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_half_blinking_healing.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_full.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_full_blinking_damage.png"),
+                //ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_full_blinking_healing.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_half.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_half_blinking_damage.png"),
+                //ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_hardcore_half_blinking_healing.png")
+        );
+    }
+    */
+    public static CustomContainerType createNORMALCustomContainerType(String modID, String heartName){
+        return new CustomContainerType(
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_blinking.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_blinking.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_hardcore.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_hardcore_blinking.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_hardcore_blinking.png")
+        );
+    }
+    public static CustomContainerType createCOMPLEXCustomContainerType(String modID, String heartName){
+        return new CustomContainerType(
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_blinking_damage.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_blinking_healing.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_hardcore.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_hardcore_blinking_damage.png"),
+                ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_hardcore_blinking_healing.png")
+        );
+    }
+
     /// method use to get the heart to draw (not used for the container hearts, since they would need a different method, and I decide
     /// to simply write the code inside its rendering method)
-    public static ResourceLocation getSprite(LivingEntity livingEntity, boolean isHardcore, boolean isHalf, boolean isBlinking, boolean isAbsorption){
+    protected static ResourceLocation getSprite(LivingEntity livingEntity, boolean isHardcore, boolean isHalf, boolean isBlinking, boolean isAbsorption){
         ResourceLocation txt;
             if (isHalf){
                 txt = isBlinking ? getHalfBlinkingHeart(livingEntity, isHardcore) : getHalfHeart(livingEntity, isHardcore, isAbsorption);
@@ -83,7 +142,7 @@ public class HealthBarHelper {
     //          ^
     //          |
     private static ResourceLocation getFullHeart(LivingEntity livingEntity, boolean isHardcore, boolean isAbsorption){
-        HealthBarPersonalVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
+        HealthBarVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
         ResourceLocation txt = isHardcore ? playerVars.resources.hardcore_full_heart : playerVars.resources.full_heart;
         if (isAbsorption){
             txt = isHardcore ? playerVars.resources.hardcore_absorbing_full_heart : playerVars.resources.absorbing_full_heart;
@@ -102,7 +161,7 @@ public class HealthBarHelper {
         return txt;
     }
     private static ResourceLocation getFullBlinkingHeart(LivingEntity livingEntity, boolean isHardcore){
-        HealthBarPersonalVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
+        HealthBarVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
         ResourceLocation txt;
         if (!isHardcore) {
             txt = playerVars.resources.full_heart_blinking_damage;
@@ -160,7 +219,7 @@ public class HealthBarHelper {
         return txt;
     }
     private static ResourceLocation getHalfHeart(LivingEntity livingEntity, boolean isHardcore, boolean isAbsorption){
-        HealthBarPersonalVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
+        HealthBarVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
         ResourceLocation txt = isHardcore ? playerVars.resources.hardcore_half_heart : playerVars.resources.half_heart;
         if (isAbsorption){
             txt = isHardcore ? playerVars.resources.hardcore_absorbing_half_heart : playerVars.resources.absorbing_half_heart;
@@ -178,7 +237,7 @@ public class HealthBarHelper {
         return txt;
     }
     private static ResourceLocation getHalfBlinkingHeart(LivingEntity livingEntity, boolean isHardcore){
-        HealthBarPersonalVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
+        HealthBarVariables.PlayerVariables playerVars = getPlayerVariables(livingEntity);
         ResourceLocation txt;
         if (!isHardcore){
            txt = playerVars.resources.half_heart_blinking_damage;
@@ -233,4 +292,62 @@ public class HealthBarHelper {
         return txt;
     }
 
+
+    //Set all necessary variable responsible for heart rendering
+    public static void buildTextures(HealthComponent healthComponent) {
+        HealthBarVariables.PlayerVariables playerVariables = healthComponent.playerVars;
+        Player player = healthComponent.serverPlayer;
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+        if (resources.CONTAINER != null) resources.CONTAINER.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.CONTANER, player);
+
+        if (resources.HEARTS != null) resources.HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.NORMAL, player);
+
+        if (resources.POISONED_HEARTS != null) resources.POISONED_HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.POISONED, player);
+
+        if (resources.WITHERED_HEARTS != null) resources.WITHERED_HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.WITHERED, player);
+
+        if (resources.FROZEN_HEARTS != null) resources.FROZEN_HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.FROZEN, player);
+
+        if (resources.ABSORBING_HEARTS != null) resources.ABSORBING_HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.ABSORBING, player);
+
+        //There is no need to sync since the syncing is made inside buildResourcesWithVanilla and inside buildResources
+    }
+
+    //There is no need to sync since the syncing is made inside buildResourcesWithVanilla and inside buildResources
+    protected static void buildContainerTextures(Player player, HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+        if (resources.CONTAINER != null) resources.CONTAINER.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.CONTANER, player);
+    }
+    protected static void buildRedHeartsTextures(Player player, HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+        if (resources.HEARTS != null) resources.HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.NORMAL, player);
+    }
+    protected static void buildPoisonedHeartsTextures(Player player, HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+        if (resources.POISONED_HEARTS != null) resources.POISONED_HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.POISONED, player);
+    }
+    protected static void buildWitheredHeartsTextures(Player player, HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+        if (resources.WITHERED_HEARTS != null) resources.WITHERED_HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.WITHERED, player);
+    }
+    protected static void buildFrozenHeartsTextures(Player player, HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+        if (resources.FROZEN_HEARTS != null) resources.FROZEN_HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.FROZEN, player);
+    }
+    protected static void buildAbsorbingHeartsTextures(Player player, HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+        if (resources.ABSORBING_HEARTS != null) resources.ABSORBING_HEARTS.buildResources(player, playerVariables);
+        else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.ABSORBING, player);
+    }
 }

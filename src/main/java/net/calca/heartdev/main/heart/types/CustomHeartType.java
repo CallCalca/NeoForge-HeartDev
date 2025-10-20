@@ -1,9 +1,9 @@
 package net.calca.heartdev.main.heart.types;
 
-import net.calca.heartdev.main.heart.render.data.variables.HealthBarPersonalVariables;
+import net.calca.heartdev.main.heart.render.data.variables.HealthBarVariables;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 
 public record CustomHeartType(
         ResourceLocation full,
@@ -20,8 +20,8 @@ public record CustomHeartType(
         //ResourceLocation hardcoreHalfBlinkingHealing
 ) {
 
-    public void buildResources(Player player, HealthBarPersonalVariables.PlayerVariables playerVariables){
-        HealthBarPersonalVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
+    public void buildResources(LivingEntity LivingEntity, HealthBarVariables.PlayerVariables playerVariables){
+        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
         resources.full_heart = this.full;
         resources.full_heart_blinking_damage = this.fullBlinkingDamage;
         //resources.full_heart_blinking_healing = this.fullBlinkingHealing;
@@ -34,7 +34,7 @@ public record CustomHeartType(
         resources.hardcore_half_heart = this.hardcoreHalf;
         resources.hardcore_half_heart_blinking_damage = this.hardcoreHalfBlinkingDamage;
         //resources.hardcore_half_heart_blinking_healing = this.hardcoreHalfBlinkingHealing;
-        playerVariables.syncPlayerVariables(player);
+        playerVariables.syncPlayerVariables(LivingEntity);
     }
 
     public CompoundTag toNbt() {
