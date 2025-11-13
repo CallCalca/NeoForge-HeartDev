@@ -13,7 +13,6 @@ public class ModClientEvents {
     @SubscribeEvent
     public static void onRenderHealth(RenderGuiLayerEvent.Pre event) {
             HealthBarRender.HEALTH_INSTANCE.shouldRenderHealthBar(event);
-
     }
 
 }

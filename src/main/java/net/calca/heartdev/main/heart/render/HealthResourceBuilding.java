@@ -10,7 +10,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-public class HealthBarResourceBuilding {
+public class HealthResourceBuilding {
     public static HealthBarVariables.PlayerVariables getPlayerVariables(LivingEntity livingEntity){
         HealthBarVariables.PlayerVariables var = null;
         if (livingEntity instanceof Player player){
@@ -107,7 +107,7 @@ public class HealthBarResourceBuilding {
         );
     }
     */
-    public static CustomContainerType createNORMALCustomContainerType(String modID, String heartName){
+    public static CustomContainerType createSimpleCustomContainerType(String modID, String heartName){
         return new CustomContainerType(
                 ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container.png"),
                 ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_blinking.png"),
@@ -117,7 +117,7 @@ public class HealthBarResourceBuilding {
                 ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_hardcore_blinking.png")
         );
     }
-    public static CustomContainerType createCOMPLEXCustomContainerType(String modID, String heartName){
+    public static CustomContainerType createComplexCustomContainerType(String modID, String heartName){
         return new CustomContainerType(
                 ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container.png"),
                 ResourceLocation.fromNamespaceAndPath(modID, "textures/gui/sprites/hud/heart/" + heartName + "_container_blinking_damage.png"),
@@ -325,7 +325,7 @@ public class HealthBarResourceBuilding {
         if (resources.CONTAINER != null) resources.CONTAINER.buildResources(player, playerVariables);
         else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.CONTANER, player);
     }
-    protected static void buildRedHeartsTextures(Player player, HealthBarVariables.PlayerVariables playerVariables){
+    public static void buildRedHeartsTextures(Player player, HealthBarVariables.PlayerVariables playerVariables){
         HealthBarVariables.PlayerVariables.ResourceValues resources = playerVariables.resources;
         if (resources.HEARTS != null) resources.HEARTS.buildResources(player, playerVariables);
         else buildResourcesWithVanilla(TextureTypes.VanillaHeartTypes.NORMAL, player);

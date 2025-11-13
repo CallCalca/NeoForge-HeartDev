@@ -3,7 +3,7 @@ package net.calca.heartdev.main.heart.types;
 import net.calca.heartdev.HeartDev;
 import net.minecraft.client.gui.Gui;
 
-import static net.calca.heartdev.main.heart.render.HealthBarResourceBuilding.createCustomHeartType;
+import static net.calca.heartdev.main.heart.render.HealthResourceBuilding.createCustomHeartType;
 
 public class TextureTypes {
 

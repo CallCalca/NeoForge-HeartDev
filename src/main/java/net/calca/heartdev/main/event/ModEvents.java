@@ -1,12 +1,7 @@
 package net.calca.heartdev.main.event;
 
 import net.calca.heartdev.HeartDev;
-import net.calca.heartdev.main.heart.render.HealthBarRender;
-import net.calca.heartdev.main.heart.render.HealthBarResourceBuilding;
 import net.calca.heartdev.main.heart.render.HealthComponent;
-import net.calca.heartdev.main.heart.render.data.variables.HealthBarVariables;
-import net.calca.heartdev.main.heart.types.TextureTypes;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -21,35 +16,28 @@ public class ModEvents{
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event){
-        if (!(event.getEntity() instanceof  Player player)) {
-            return;
+        if (event.getEntity() instanceof Player player){
+            if (player.level().isClientSide) return;
+
+            HealthComponent healthComponent = new HealthComponent(player);
+
+            healthComponent.resetAll();
+            healthComponent.activateRendering(true);
         }
-
-        HealthComponent healthComponent = new HealthComponent(player);
-
-        healthComponent.resetAll();
-            HealthBarResourceBuilding.buildTextures(healthComponent);
 
     }
 
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Pre event){
-
         if (event.getEntity() instanceof Player player){
             if (player.level().isClientSide) return;
-            HealthComponent healthComponent = new HealthComponent(player);
 
-            if (player.hasEffect(MobEffects.BAD_OMEN)){
-                healthComponent.variablesRefresh();
-                healthComponent.activateRendering(true);
-                healthComponent.setHeartType(TextureTypes.ModdedTextures.MAGENTA_HEARTS);
-                healthComponent.overrideHalfHeart(TextureTypes.ModdedTextures.ORANGE_HEARTS.half());
-                healthComponent.setRegenAnimationOffSetY(3);
-            }else{
-                healthComponent.activateRendering(false);
-            }
+            HealthComponent healthComponent = new HealthComponent(player);
+            healthComponent.setCollapseDifferentLifeTypes(true);
+
         }
+
     }
 
 }

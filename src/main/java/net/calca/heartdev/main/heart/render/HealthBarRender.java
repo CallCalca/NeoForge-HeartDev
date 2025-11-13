@@ -40,7 +40,7 @@ public class HealthBarRender {
                 this.player = null;
             }
             this.resources = (this.player != null)
-                    ? HealthBarResourceBuilding.getPlayerVariables(player).resources
+                    ? HealthResourceBuilding.getPlayerVariables(player).resources
                     : null;
         }
 
@@ -105,7 +105,7 @@ public class HealthBarRender {
                     || !(mc.getCameraEntity() instanceof LocalPlayer localPlayer)) {
                 return;
             }
-            HealthBarVariables.PlayerVariables playerVars = HealthBarResourceBuilding.getPlayerVariables(localPlayer);
+            HealthBarVariables.PlayerVariables playerVars = HealthResourceBuilding.getPlayerVariables(localPlayer);
             if (playerVars.should_render) {
                 event.setCanceled(true); // Deve cancellare solo quando necessario qunidi fare un metodo aparte che comprenda se cancellare o meno
 
@@ -240,7 +240,7 @@ public class HealthBarRender {
     }
 
     private void checks(Player player){
-        HealthBarVariables.PlayerVariables playerVariables = HealthBarResourceBuilding.getPlayerVariables(player);
+        HealthBarVariables.PlayerVariables playerVariables = HealthResourceBuilding.getPlayerVariables(player);
 
         // -- 1) Updating Blinking state
         updateBlinkingState(player, playerVariables);
@@ -253,8 +253,8 @@ public class HealthBarRender {
     }
 
     //Aumenta la quantità di vita parziale fino alla vita precedente a quella che deve essere renderizzata, così da ottenere la location in cui renderizzarla.
-    public void setPartialHealthAmountVariable(Player player, int healthNumber){
-        HealthBarVariables.PlayerVariables playerVariables = HealthBarResourceBuilding.getPlayerVariables(player);
+    private void setPartialHealthAmountVariable(Player player, int healthNumber){
+        HealthBarVariables.PlayerVariables playerVariables = HealthResourceBuilding.getPlayerVariables(player);
         HealthBarVariables.PlayerVariables.HealthValues health = playerVariables.health;
         int localNormalLifeNumber = health.red_LifePriority;
         int localAbsorptionLifeNumber = health.abs_LifePriority;
@@ -305,12 +305,14 @@ public class HealthBarRender {
         if (gui.startX == -9999) startX = width / 2 - 91; //X start point, used to draw the health bar.
         else startX = gui.startX;
 
+        setVariables(playerVars, player);
+
+        //Rendering absorption hearts CYCLE
+        renderAbsCycle(player, playerVars, gfx, startY, startX);
 
         //Normal life type render CYCLE
         renderRedCycle(player, playerVars, random, gfx, startY, startX);
 
-        //Rendering absorption hearts CYCLE
-        renderAbsCycle(player, playerVars, gfx, startY, startX);
 
         //Y start point is fixed to allow the armor bar to correctly render.
         fixArmors(playerVars);
@@ -340,10 +342,10 @@ public class HealthBarRender {
             int col  = (slotIndex % 10); //Indicated in which column this slot is being rendered
 
 
-            boolean halfAbs = health.abs_HasHalf && j == gui.abs_Slots - 1; //Does the player have an half absorption heart? Calculated on the last available absorption
+            boolean halfAbs = health.abs_HasHalf && j == gui.abs_Slots - 1; //Does the player have a half absorption heart? Calculated on the last available absorption
             //heart, since it is the only one capable of being halved.
 
-            //When this variable is true and the player has an half normal life type heart, this block will fire
+            //When this variable is true and the player has a half normal life type heart, this block will fire
             //All variables such as col and line are re inizialized to match the changing health bar render system
             if (gui.collapseDifferentLifeTypes && health.red_HasHalf){
                 int check = (slotIndex) / 11; //Because the absorption heart will shift back by 1 when a half heart is present, it is needed to check for 11 hearts in the first line, and not for 10.
@@ -366,14 +368,14 @@ public class HealthBarRender {
             //halfAbs will be based on
             if (gui.collapseDifferentLifeTypes && health.red_HasHalf){
                 halfAbs = health.abs_HasHalf && j == gui.abs_Slots - 1;
-                //If the player has at least 2 absorption hearts (1 isnt considered since it is used just for rendering the half heart) and
-                //the is not being rendered the first slot (j > 0) or the player has and half normal heart, this block will fire
-                if (health.abs_Amount-1 > 0 && (j > 0 || halfAbs)){
+                //If the player has at least 2 absorption hearts (1 isn't considered since it is used just for rendering the half heart) and
+                //is not being rendered the first slot (j > 0) or the player has a half normal heart, this block will fire
+                if (health.abs_Amount-1 > 0 && (j > 0 || health.red_HasHalf)){
                     int key = line * 10 + col; //The slot value
                     gui.absorptionSlotsList.add(key); //The slot this happens to be true will be saved inside the absorptionSlots list, that will be later used.
                     renderAbs(player, playerVars, gfx, x, y, halfAbs); //Finally the absorption heart is rendered
                 }
-            }else{ //This will basically fire when the player does not have a full heart.
+            }else{ //This will basically fire when the player does have a full heart.
                 int key = line * 10 + col; //The slot value
                 gui.absorptionSlotsList.add(key);//The slot will be saved inside the absorptionSlots list, that will be later used.
                 renderAbs(player, playerVars, gfx, x, y, halfAbs); //Finally the absorption heart is rendered
@@ -392,7 +394,7 @@ public class HealthBarRender {
         HealthBarVariables.PlayerVariables.GuiValues gui = playerVars.gui;
         HealthBarVariables.PlayerVariables.RegenEventValues regen = playerVars.regen;
 
-        for (int i = health.tot_MaxHearts - 1; i >= 0; i--) {
+        for (int i = health.red_MaxHearts - 1; i >= 0; i--) {
             int line = i / 10; //The line in which this particular slot is in
             int col  = i % 10; //The column in which this particular slot is in
             int x = startX + (i % 10) * 8; //X start render point
@@ -468,9 +470,9 @@ public class HealthBarRender {
             ResourceLocation blinkTex = null;
 
             if (oldHealth >= slotMax && health.red_Amount < slotMax) {
-                blinkTex = HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, false, true, false);
+                blinkTex = HealthResourceBuilding.getSprite(player, playerVariables.isHardcore, false, true, false);
             } else if (oldHealth >= slotMid && health.red_Amount < slotMid) {
-                blinkTex = HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, true, true, false);
+                blinkTex = HealthResourceBuilding.getSprite(player, playerVariables.isHardcore, true, true, false);
             }
 
             if (blinkTex != null) {
@@ -493,8 +495,8 @@ public class HealthBarRender {
 
 
         ResourceLocation texA = halfAbs
-                ? HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, true, false, true)
-                : HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, false, false, true);
+                ? HealthResourceBuilding.getSprite(player, playerVariables.isHardcore, true, false, true)
+                : HealthResourceBuilding.getSprite(player, playerVariables.isHardcore, false, false, true);
 
         // disegna cuore di assorbimento
         RenderSystem.setShaderTexture(0, texA);
@@ -508,9 +510,9 @@ public class HealthBarRender {
         HealthBarVariables.PlayerVariables.HealthValues health = playerVariables.health;
         ResourceLocation heartTex = null;
         if (i < health.red_FullHearts) {
-            heartTex = HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, false, false, false);
+            heartTex = HealthResourceBuilding.getSprite(player, playerVariables.isHardcore, false, false, false);
         } else if (i == health.red_FullHearts && health.red_HasHalf) {
-            heartTex = HealthBarResourceBuilding.getSprite(player, playerVariables.isHardcore, true, false, false);
+            heartTex = HealthResourceBuilding.getSprite(player, playerVariables.isHardcore, true, false, false);
         }
 
         if (heartTex != null) {
