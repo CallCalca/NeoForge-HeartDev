@@ -1,11 +1,14 @@
 package net.calca.heartdev.main.heart.render;
 
+import net.calca.heartdev.main.effect.ModEffects;
 import net.calca.heartdev.main.heart.render.data.variables.HealthBarVariables;
 import net.calca.heartdev.main.heart.types.CustomContainerType;
 import net.calca.heartdev.main.heart.types.CustomHeartType;
+import net.calca.heartdev.main.heart.types.TextureTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 
 public class HealthComponent{
 
@@ -36,6 +39,56 @@ public class HealthComponent{
     public void activateRendering(boolean shouldRender){
         if (playerVars.should_render == shouldRender) return;
         playerVars.should_render = shouldRender;
+        sync();
+    }
+
+    public void activateOrangeEffect (){
+        if (serverPlayer.hasEffect(ModEffects.ORANGE_HEARTS)){
+            return;
+        }
+        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.ORANGE_HEARTS;
+        sync();
+    }
+    public void activateYellowEffect (){
+        if (serverPlayer.hasEffect(ModEffects.YELLOW_HEARTS)){
+            return;
+        }
+        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.YELLOW_HEARTS;
+        sync();
+    }
+    public void activateGreenEffect (){
+        if (serverPlayer.hasEffect(ModEffects.GREEN_HEARTS)){
+            return;
+        }
+        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.GREEN_HEARTS;
+        sync();
+    }
+    public void activateLightBlueEffect (){
+        if (serverPlayer.hasEffect(ModEffects.LIGHT_BLUE_HEARTS)){
+            return;
+        }
+        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.LIGHT_BLUE_HEARTS;
+        sync();
+    }
+    public void activateBlueEffect (){
+        if (serverPlayer.hasEffect(ModEffects.BLUE_HEARTS)){
+            return;
+        }
+        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.BLUE_HEARTS;
+        sync();
+    }
+    public void activatePurpleEffect (){
+        if (serverPlayer.hasEffect(ModEffects.PURPLE_HEARTS)){
+            return;
+        }
+        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.PURPLE_HEARTS;
+        sync();
+    }
+    public void activateMagentaEffect (){
+        if (serverPlayer.hasEffect(ModEffects.MAGENTA_HEARTS)){
+            return;
+        }
+        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.MAGENTA_HEARTS;
         sync();
     }
 
@@ -307,7 +360,7 @@ public class HealthComponent{
         playerVars.resources.frozen_half_heart = halfHeart;
         sync();
     }
-    public void overrideFrozenHalfHeartBlinking(ResourceLocation halfHeartBlinking){
+    public void overrideFrozenHalfBlinkingHeart(ResourceLocation halfHeartBlinking){
         if (playerVars.resources.frozen_half_heart_blinking_damage == halfHeartBlinking) return;
         playerVars.resources.frozen_half_heart_blinking_damage = halfHeartBlinking;
         sync();

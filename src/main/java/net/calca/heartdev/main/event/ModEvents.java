@@ -16,6 +16,8 @@ public class ModEvents{
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event){
+        /*
+    }
         if (event.getEntity() instanceof Player player){
             if (player.level().isClientSide) return;
 
@@ -25,11 +27,14 @@ public class ModEvents{
             healthComponent.activateRendering(true);
         }
 
+         */
+
     }
 
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Pre event){
+        /*
         if (event.getEntity() instanceof Player player){
             if (player.level().isClientSide) return;
 
@@ -37,7 +42,9 @@ public class ModEvents{
             healthComponent.setCollapseDifferentLifeTypes(true);
 
         }
-
+            */
     }
+
+
 
 }

@@ -28,67 +28,6 @@ import java.util.Objects;
  * Colorful Hearts author = Terrails
  */
 public class HealthBarRender {
-    public static class PreSets {
-
-        public final ServerPlayer player;
-        public final HealthBarVariables.PlayerVariables.ResourceValues resources;
-
-        public PreSets(Player player) {
-            if (player instanceof ServerPlayer serverPlayer1){
-                this.player = serverPlayer1;
-            }else{
-                this.player = null;
-            }
-            this.resources = (this.player != null)
-                    ? HealthResourceBuilding.getPlayerVariables(player).resources
-                    : null;
-        }
-
-        public void activateOrangeEffect (){
-            if (player.hasEffect(ModEffects.ORANGE_HEARTS)){
-                return;
-            }
-            resources.HEARTS = TextureTypes.ModdedTextures.ORANGE_HEARTS;
-
-        }
-        public void activateYellowEffect (){
-            if (player.hasEffect(ModEffects.YELLOW_HEARTS)){
-                return;
-            }
-            resources.HEARTS = TextureTypes.ModdedTextures.YELLOW_HEARTS;
-        }
-        public void activateGreenEffect (){
-            if (player.hasEffect(ModEffects.GREEN_HEARTS)){
-                return;
-            }
-            resources.HEARTS = TextureTypes.ModdedTextures.GREEN_HEARTS;
-        }
-        public void activateLightBlueEffect (){
-            if (player.hasEffect(ModEffects.LIGHT_BLUE_HEARTS)){
-                return;
-            }
-            resources.HEARTS = TextureTypes.ModdedTextures.LIGHT_BLUE_HEARTS;
-        }
-        public void activateBlueEffect (){
-            if (player.hasEffect(ModEffects.BLUE_HEARTS)){
-                return;
-            }
-            resources.HEARTS = TextureTypes.ModdedTextures.BLUE_HEARTS;
-        }
-        public void activatePurpleEffect (){
-            if (player.hasEffect(ModEffects.PURPLE_HEARTS)){
-                return;
-            }
-            resources.HEARTS = TextureTypes.ModdedTextures.PURPLE_HEARTS;
-        }
-        public void activateMagentaEffect (){
-            if (player.hasEffect(ModEffects.MAGENTA_HEARTS)){
-                return;
-            }
-            resources.HEARTS = TextureTypes.ModdedTextures.MAGENTA_HEARTS;
-        }
-
-    }
     @Deprecated
     public final Minecraft mc = Minecraft.getInstance(); // Minecraft instance
 
