@@ -1,439 +1,195 @@
 package net.calca.heartdev.main.heart.render;
 
-import net.calca.heartdev.main.effect.ModEffects;
-import net.calca.heartdev.main.heart.render.data.variables.HealthBarVariables;
 import net.calca.heartdev.main.heart.types.CustomContainerType;
 import net.calca.heartdev.main.heart.types.CustomHeartType;
-import net.calca.heartdev.main.heart.types.TextureTypes;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 
-public class HealthComponent{
-
-    public final ServerPlayer serverPlayer;
-    public final HealthBarVariables.PlayerVariables playerVars;
-
-    //Variables initializer (It initializes serverPlayer and playerVars).
-    public HealthComponent(LivingEntity livingEntity) {
-        if (livingEntity instanceof ServerPlayer sp) {
-            this.serverPlayer = sp;
-        } else {
-            this.serverPlayer = null;
-        }
-
-        this.playerVars = (this.serverPlayer != null)
-                ? HealthResourceBuilding.getPlayerVariables(this.serverPlayer)
-                : null;
+public class HealthComponent {
+    public static void setContainerType(CustomContainerType customContainerType){
+        HealthBarVariables.CONTAINER = customContainerType;
     }
-
-    private void sync(){
-        playerVars.syncPlayerVariables(serverPlayer);
+    public static void setHeartType(CustomHeartType customHeartType){
+        HealthBarVariables.HEARTS = customHeartType;
     }
-    public void variablesRefresh(){
-        HealthBarRender.HEALTH_INSTANCE.setVariables(playerVars, serverPlayer);
-        sync();
+    public static void setPoisonedType(CustomHeartType customHeartType){
+        HealthBarVariables.POISONED_HEARTS = customHeartType;
+    }
+    public static void setWitheredType(CustomHeartType customHeartType){
+        HealthBarVariables.WITHERED_HEARTS = customHeartType;
+    }
+    public static void setFrozenType(CustomHeartType customHeartType){
+        HealthBarVariables.FROZEN_HEARTS = customHeartType;
+    }
+    public static void setAbsorbingType(CustomHeartType customHeartType){
+        HealthBarVariables.ABSORBING_HEARTS = customHeartType;
     }
 
-    public void activateRendering(boolean shouldRender){
-        if (playerVars.should_render == shouldRender) return;
-        playerVars.should_render = shouldRender;
-        sync();
+    public static void setRegenAnimationSpeed(int speed){
+        HealthBarVariables.regenAnimationSpeed = speed;
+    }
+    public static void setRegenAnimationCooldown(int cooldown){
+        HealthBarVariables.regenAnimationCooldown = cooldown;
+    }
+    public static void setRegenAnimationOffSetY(int offSetY){
+        HealthBarVariables.regenAnimationYoffSet = offSetY;
+    }
+    public static void overrideIsHardcore(boolean isHardcore){
+        HealthBarVariables.isHardcore = isHardcore;
     }
 
-    public void activateOrangeEffect (){
-        if (serverPlayer.hasEffect(ModEffects.ORANGE_HEARTS)){
-            return;
-        }
-        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.ORANGE_HEARTS;
-        sync();
+    public static void setMaximumSpaceBetweenRows(int space){
+        HealthBarVariables.spaceBetweenRowsMax = space;
     }
-    public void activateYellowEffect (){
-        if (serverPlayer.hasEffect(ModEffects.YELLOW_HEARTS)){
-            return;
-        }
-        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.YELLOW_HEARTS;
-        sync();
-    }
-    public void activateGreenEffect (){
-        if (serverPlayer.hasEffect(ModEffects.GREEN_HEARTS)){
-            return;
-        }
-        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.GREEN_HEARTS;
-        sync();
-    }
-    public void activateLightBlueEffect (){
-        if (serverPlayer.hasEffect(ModEffects.LIGHT_BLUE_HEARTS)){
-            return;
-        }
-        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.LIGHT_BLUE_HEARTS;
-        sync();
-    }
-    public void activateBlueEffect (){
-        if (serverPlayer.hasEffect(ModEffects.BLUE_HEARTS)){
-            return;
-        }
-        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.BLUE_HEARTS;
-        sync();
-    }
-    public void activatePurpleEffect (){
-        if (serverPlayer.hasEffect(ModEffects.PURPLE_HEARTS)){
-            return;
-        }
-        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.PURPLE_HEARTS;
-        sync();
-    }
-    public void activateMagentaEffect (){
-        if (serverPlayer.hasEffect(ModEffects.MAGENTA_HEARTS)){
-            return;
-        }
-        playerVars.resources.HEARTS = TextureTypes.ModdedTextures.MAGENTA_HEARTS;
-        sync();
+    public static void setMinimumSpaceBetweenRows(int space){
+        HealthBarVariables.spaceBetweenRowsMin = space;
     }
 
-    //Start auto-synced block ---
-    public void setContainerType(CustomContainerType customContainerType){
-        if (playerVars.resources.CONTAINER == customContainerType) return;
-        playerVars.resources.CONTAINER = customContainerType;
-        HealthResourceBuilding.buildContainerTextures(serverPlayer, playerVars);
+    public static void setHideEmptyHearts(boolean hide){
+        HealthBarVariables.hideEmptyHearts = hide;
     }
-    public void setHeartType(CustomHeartType customHeartType){
-        if (playerVars.resources.HEARTS == customHeartType) return;
-        playerVars.resources.HEARTS = customHeartType;
-        HealthResourceBuilding.buildRedHeartsTextures(serverPlayer, playerVars);
-    }
-    public void setPoisonedType(CustomHeartType customHeartType){
-        if (playerVars.resources.POISONED_HEARTS == customHeartType) return;
-        playerVars.resources.POISONED_HEARTS = customHeartType;
-        HealthResourceBuilding.buildPoisonedHeartsTextures(serverPlayer, playerVars);
-    }
-    public void setWitheredType(CustomHeartType customHeartType){
-        if (playerVars.resources.WITHERED_HEARTS == customHeartType) return;
-        playerVars.resources.WITHERED_HEARTS = customHeartType;
-        HealthResourceBuilding.buildWitheredHeartsTextures(serverPlayer, playerVars);
-    }
-    public void setFrozenType(CustomHeartType customHeartType){
-        if (playerVars.resources.FROZEN_HEARTS == customHeartType) return;
-        playerVars.resources.FROZEN_HEARTS = customHeartType;
-        HealthResourceBuilding.buildFrozenHeartsTextures(serverPlayer, playerVars);
-    }
-    public void setAbsorbingType(CustomHeartType customHeartType){
-        if (playerVars.resources.ABSORBING_HEARTS == customHeartType) return;
-        playerVars.resources.ABSORBING_HEARTS = customHeartType;
-        HealthResourceBuilding.buildAbsorbingHeartsTextures(serverPlayer, playerVars);
-    }
-    //End auto-synced block -||
-
-    //Non auto-synced methods. These methods must be put inside the "overrideWorkspace" were the syncing will happen.
-    public void setRegenAnimationSpeed(int speed){
-        if (playerVars.regen.reg_ticksPerHeart == speed) return;
-        playerVars.regen.reg_ticksPerHeart = speed;
-        sync();
-    }
-    public void setRegenAnimationCooldown(int cooldown){
-        if (playerVars.regen.reg_cooldown == cooldown) return;
-        playerVars.regen.reg_cooldown = cooldown;
-        sync();
-    }
-    public void setRegenAnimationOffSetY(int offSetY){
-        if (playerVars.regen.reg_yOffset == offSetY) return;
-        playerVars.regen.reg_yOffset = offSetY;
-        sync();
+    public static void setCollapseDifferentLifeTypes(boolean collapse){
+        HealthBarVariables.collapseDifferentLifeTypes = collapse;
     }
 
-    public void setMaximumSpaceBetweenRows(int space){
-        if (playerVars.gui.spaceBetweenRowsMax == space) return;
-        playerVars.gui.spaceBetweenRowsMax = space;
-        sync();
+    public static void overrideContainer(ResourceLocation container){
+        HealthBarVariables.container = container;
     }
-    public void setMinimumSpaceBetweenRows(int space){
-        if (playerVars.gui.spaceBetweenRowsMin == space) return;
-        playerVars.gui.spaceBetweenRowsMin = space;
-        sync();
+    public static void overrideContainerBlinkingDamage(ResourceLocation containerBlinking){
+        HealthBarVariables.container_blinking_damage = containerBlinking;
     }
-    public void setCollapseDifferentLifeTypes(boolean collapse){
-        if (playerVars.gui.collapseDifferentLifeTypes == collapse) return;
-        playerVars.gui.collapseDifferentLifeTypes = collapse;
-        sync();
+    public static void overrideContainerBlinkingHealing(ResourceLocation containerBlinking){
+        HealthBarVariables.container_blinking_healing = containerBlinking;
     }
-
-    private void setNormalLifePriority(int priority){
-        if (playerVars.health.red_LifePriority == priority) return;
-        playerVars.health.red_LifePriority = priority;
-        sync();
+    public static void overrideContainerHardcore(ResourceLocation containerHardcore){
+        HealthBarVariables.hardcore_container = containerHardcore;
     }
-    private void setAbsorptionLifePriority(int priority){
-        if (playerVars.health.abs_LifePriority == priority) return;
-        playerVars.health.abs_LifePriority = priority;
-        sync();
+    public static void overrideContainerHardcoreBlinkingDamage(ResourceLocation containerHardcoreBlinking){
+        HealthBarVariables.hardcore_container_blinking_damage = containerHardcoreBlinking;
+    }
+    public static void overrideContainerHardcoreBlinkingHealing(ResourceLocation containerHardcoreBlinking){
+        HealthBarVariables.hardcore_container_blinking_healing = containerHardcoreBlinking;
     }
 
-    public void setStartX(int startX){
-        if (playerVars.gui.startX == startX) return;
-        playerVars.gui.startX = startX;
-        sync();
+    public static void overrideFullHeart(ResourceLocation fullHeart){
+        HealthBarVariables.full_heart = fullHeart;
     }
-    public void setStartY(int startY){
-        if (playerVars.gui.startY == startY) return;
-        playerVars.gui.startY = startY;
-        sync();
+    public static void overrideFullHeartBlinking(ResourceLocation fullHeartBlinking){
+        HealthBarVariables.full_heart_blinking_damage = fullHeartBlinking;
     }
-
-    public void setIsHardcore(boolean isHardcore){
-        if (playerVars.isHardcore == isHardcore) return;
-        playerVars.isHardcore = isHardcore;
-        sync();
+    public static void overrideHalfHeart(ResourceLocation halfHeart){
+        HealthBarVariables.half_heart = halfHeart;
     }
-    public void hideEmptyHearts(boolean hide){
-        if (playerVars.gui.hideEmptyHearts == hide) return;
-        playerVars.gui.hideEmptyHearts = hide;
-        sync();
+    public static void overrideHalfHeartBlinking(ResourceLocation halfHeartBlinking){
+        HealthBarVariables.half_heart_blinking_damage = halfHeartBlinking;
     }
-
-    public void overrideContainer(ResourceLocation container){
-        if (playerVars.resources.container == container) return;
-        playerVars.resources.container = container;
-        sync();
+    public static void overrideHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
+        HealthBarVariables.hardcore_full_heart = hardcoreFullHeart;
     }
-    public void overrideContainerBlinkingDamage(ResourceLocation containerBlinking){
-        if (playerVars.resources.container_blinking_damage == containerBlinking) return;
-        playerVars.resources.container_blinking_damage = containerBlinking;
-        sync();
+    public static void overrideHardcoreFullHeartBlinking(ResourceLocation hardcoreFullHeartBlinking){
+        HealthBarVariables.hardcore_full_heart_blinking_damage = hardcoreFullHeartBlinking;
     }
-    public void overrideContainerBlinkingHealing(ResourceLocation containerBlinking){
-        if (playerVars.resources.container_blinking_healing == containerBlinking) return;
-        playerVars.resources.container_blinking_healing = containerBlinking;
-        sync();
+    public static void overrideHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
+        HealthBarVariables.hardcore_half_heart = hardcoreHalfHeart;
     }
-    public void overrideContainerHardcore(ResourceLocation containerHardcore){
-        if (playerVars.resources.hardcore_container == containerHardcore) return;
-        playerVars.resources.hardcore_container = containerHardcore;
-        sync();
-    }
-    public void overrideContainerHardcoreBlinkingDamage(ResourceLocation containerHardcoreBlinking){
-        if (playerVars.resources.hardcore_container_blinking_damage == containerHardcoreBlinking) return;
-        playerVars.resources.hardcore_container_blinking_damage = containerHardcoreBlinking;
-        sync();
-    }
-    public void overrideContainerHardcoreBlinkingHealing(ResourceLocation containerHardcoreBlinking){
-        if (playerVars.resources.hardcore_container_blinking_healing == containerHardcoreBlinking) return;
-        playerVars.resources.hardcore_container_blinking_healing = containerHardcoreBlinking;
-        sync();
+    public static void overrideHardcoreHalfHeartBlinking(ResourceLocation hardcoreHalfHeartBlinking){
+        HealthBarVariables.hardcore_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
     }
 
-    public void overrideFullHeart(ResourceLocation fullHeart){
-        if (playerVars.resources.full_heart == fullHeart) return;
-        playerVars.resources.full_heart = fullHeart;
-        sync();
+    public static void overridePoisonedFullHeart(ResourceLocation fullHeart){
+        HealthBarVariables.poisoned_full_heart = fullHeart;
     }
-    public void overrideFullBlinkingHeart(ResourceLocation fullHeartBlinking){
-        if (playerVars.resources.full_heart_blinking_damage == fullHeartBlinking) return;
-        playerVars.resources.full_heart_blinking_damage = fullHeartBlinking;
-        sync();
+    public static void overridePoisonedFullHeartBlinking(ResourceLocation fullHeartBlinking){
+        HealthBarVariables.poisoned_full_heart_blinking_damage = fullHeartBlinking;
     }
-    public void overrideHalfHeart(ResourceLocation halfHeart){
-        if (playerVars.resources.half_heart == halfHeart) return;
-        playerVars.resources.half_heart = halfHeart;
-        sync();
+    public static void overridePoisonedHalfHeart(ResourceLocation halfHeart){
+        HealthBarVariables.poisoned_half_heart = halfHeart;
     }
-    public void overrideHalfBlinkingHeart(ResourceLocation halfHeartBlinking){
-        if (playerVars.resources.half_heart_blinking_damage == halfHeartBlinking) return;
-        playerVars.resources.half_heart_blinking_damage = halfHeartBlinking;
-        sync();
+    public static void overridePoisonedHalfHeartBlinking(ResourceLocation halfHeartBlinking){
+        HealthBarVariables.poisoned_half_heart_blinking_damage = halfHeartBlinking;
     }
-    public void overrideHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
-        if (playerVars.resources.hardcore_full_heart == hardcoreFullHeart) return;
-        playerVars.resources.hardcore_full_heart = hardcoreFullHeart;
-        sync();
+    public static void overridePoisonedHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
+        HealthBarVariables.hardcore_poisoned_full_heart = hardcoreFullHeart;
     }
-    public void overrideHardcoreFullBlinkingHeart(ResourceLocation hardcoreFullHeartBlinking){
-        if (playerVars.resources.hardcore_full_heart_blinking_damage == hardcoreFullHeartBlinking) return;
-        playerVars.resources.hardcore_full_heart_blinking_damage = hardcoreFullHeartBlinking;
-        sync();
+    public static void overridePoisonedHardcoreFullHeartBlinking(ResourceLocation hardcoreFullHeartBlinking){
+        HealthBarVariables.hardcore_poisoned_full_heart_blinking_damage = hardcoreFullHeartBlinking;
     }
-    public void overrideHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
-        if (playerVars.resources.hardcore_half_heart == hardcoreHalfHeart) return;
-        playerVars.resources.hardcore_half_heart = hardcoreHalfHeart;
-        sync();
+    public static void overridePoisonedHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
+        HealthBarVariables.hardcore_poisoned_half_heart = hardcoreHalfHeart;
     }
-    public void overrideHardcoreHalfBlinkingHeart(ResourceLocation hardcoreHalfHeartBlinking){
-        if (playerVars.resources.hardcore_half_heart_blinking_damage == hardcoreHalfHeartBlinking) return;
-        playerVars.resources.hardcore_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
-        sync();
+    public static void overridePoisonedHardcoreHalfHeartBlinking(ResourceLocation hardcoreHalfHeartBlinking){
+        HealthBarVariables.hardcore_poisoned_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
     }
 
-    public void overridePoisonedFullHeart(ResourceLocation fullHeart){
-        if (playerVars.resources.poisoned_full_heart == fullHeart) return;
-        playerVars.resources.poisoned_full_heart = fullHeart;
-        sync();
+    public static void overrideWitheredFullHeart(ResourceLocation fullHeart){
+        HealthBarVariables.withered_full_heart = fullHeart;
     }
-    public void overridePoisonedFullBlinkingHeart(ResourceLocation fullHeartBlinking){
-        if (playerVars.resources.poisoned_full_heart_blinking_damage == fullHeartBlinking) return;
-        playerVars.resources.poisoned_full_heart_blinking_damage = fullHeartBlinking;
-        sync();
+    public static void overrideWitheredFullHeartBlinking(ResourceLocation fullHeartBlinking){
+        HealthBarVariables.withered_full_heart_blinking_damage = fullHeartBlinking;
     }
-    public void overridePoisonedHalfHeart(ResourceLocation halfHeart){
-        if (playerVars.resources.poisoned_half_heart == halfHeart) return;
-        playerVars.resources.poisoned_half_heart = halfHeart;
-        sync();
+    public static void overrideWitheredHalfHeart(ResourceLocation halfHeart){
+        HealthBarVariables.withered_half_heart = halfHeart;
     }
-    public void overridePoisonedHalfBlinkingHeart(ResourceLocation halfHeartBlinking){
-        if (playerVars.resources.poisoned_half_heart_blinking_damage == halfHeartBlinking) return;
-        playerVars.resources.poisoned_half_heart_blinking_damage = halfHeartBlinking;
-        sync();
+    public static void overrideWitheredHalfHeartBlinking(ResourceLocation halfHeartBlinking){
+        HealthBarVariables.withered_half_heart_blinking_damage = halfHeartBlinking;
     }
-    public void overridePoisonedHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
-        if (playerVars.resources.hardcore_poisoned_full_heart == hardcoreFullHeart) return;
-        playerVars.resources.hardcore_poisoned_full_heart = hardcoreFullHeart;
-        sync();
+    public static void overrideWitheredHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
+        HealthBarVariables.hardcore_withered_full_heart = hardcoreFullHeart;
     }
-    public void overridePoisonedHardcoreFullBlinkingHeart(ResourceLocation hardcoreFullHeartBlinking){
-        if (playerVars.resources.hardcore_poisoned_full_heart_blinking_damage == hardcoreFullHeartBlinking) return;
-        playerVars.resources.hardcore_poisoned_full_heart_blinking_damage = hardcoreFullHeartBlinking;
-        sync();
+    public static void overrideWitheredHardcoreFullHeartBlinking(ResourceLocation hardcoreFullHeartBlinking){
+        HealthBarVariables.hardcore_withered_full_heart_blinking_damage = hardcoreFullHeartBlinking;
     }
-    public void overridePoisonedHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
-        if (playerVars.resources.hardcore_poisoned_half_heart == hardcoreHalfHeart) return;
-        playerVars.resources.hardcore_poisoned_half_heart = hardcoreHalfHeart;
-        sync();
+    public static void overrideWitheredHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
+        HealthBarVariables.hardcore_withered_half_heart = hardcoreHalfHeart;
     }
-    public void overridePoisonedHardcoreHalfBlinkingHeart(ResourceLocation hardcoreHalfHeartBlinking){
-        if (playerVars.resources.hardcore_poisoned_half_heart_blinking_damage == hardcoreHalfHeartBlinking) return;
-        playerVars.resources.hardcore_poisoned_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
-        sync();
+    public static void overrideWitheredHardcoreHalfHeartBlinking(ResourceLocation hardcoreHalfHeartBlinking){
+        HealthBarVariables.hardcore_withered_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
     }
 
-    public void overrideWitheredFullHeart(ResourceLocation fullHeart){
-        if (playerVars.resources.withered_full_heart == fullHeart) return;
-        playerVars.resources.withered_full_heart = fullHeart;
-        sync();
+    public static void overrideFrozenFullHeart(ResourceLocation fullHeart){
+        HealthBarVariables.frozen_full_heart = fullHeart;
     }
-    public void overrideWitheredFullBlinkingHeart(ResourceLocation fullHeartBlinking){
-        if (playerVars.resources.withered_full_heart_blinking_damage == fullHeartBlinking) return;
-        playerVars.resources.withered_full_heart_blinking_damage = fullHeartBlinking;
-        sync();
+    public static void overrideFrozenFullHeartBlinking(ResourceLocation fullHeartBlinking){
+        HealthBarVariables.frozen_full_heart_blinking_damage = fullHeartBlinking;
     }
-    public void overrideWitheredHalfHeart(ResourceLocation halfHeart){
-        if (playerVars.resources.withered_half_heart == halfHeart) return;
-        playerVars.resources.withered_half_heart = halfHeart;
-        sync();
+    public static void overrideFrozenHalfHeart(ResourceLocation halfHeart){
+        HealthBarVariables.frozen_half_heart = halfHeart;
     }
-    public void overrideWitheredHalfBlinkingHeart(ResourceLocation halfHeartBlinking){
-        if (playerVars.resources.withered_half_heart_blinking_damage == halfHeartBlinking) return;
-        playerVars.resources.withered_half_heart_blinking_damage = halfHeartBlinking;
-        sync();
+    public static void overrideFrozenHalfHeartBlinking(ResourceLocation halfHeartBlinking){
+        HealthBarVariables.frozen_half_heart_blinking_damage = halfHeartBlinking;
     }
-    public void overrideWitheredHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
-        if (playerVars.resources.hardcore_withered_full_heart == hardcoreFullHeart) return;
-        playerVars.resources.hardcore_withered_full_heart = hardcoreFullHeart;
-        sync();
+    public static void overrideFrozenHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
+        HealthBarVariables.hardcore_frozen_full_heart = hardcoreFullHeart;
     }
-    public void overrideWitheredHardcoreFullBlinkingHeart(ResourceLocation hardcoreFullHeartBlinking){
-        if (playerVars.resources.hardcore_withered_full_heart_blinking_damage == hardcoreFullHeartBlinking) return;
-        playerVars.resources.hardcore_withered_full_heart_blinking_damage = hardcoreFullHeartBlinking;
-        sync();
+    public static void overrideFrozenHardcoreFullHeartBlinking(ResourceLocation hardcoreFullHeartBlinking){
+        HealthBarVariables.hardcore_frozen_full_heart_blinking_damage = hardcoreFullHeartBlinking;
     }
-    public void overrideWitheredHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
-        if (playerVars.resources.hardcore_withered_half_heart == hardcoreHalfHeart) return;
-        playerVars.resources.hardcore_withered_half_heart = hardcoreHalfHeart;
-        sync();
+    public static void overrideFrozenHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
+        HealthBarVariables.hardcore_frozen_half_heart = hardcoreHalfHeart;
     }
-    public void overrideWitheredHardcoreHalfBlinkingHeart(ResourceLocation hardcoreHalfHeartBlinking){
-        if (playerVars.resources.hardcore_withered_half_heart_blinking_damage == hardcoreHalfHeartBlinking) return;
-        playerVars.resources.hardcore_withered_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
-        sync();
+    public static void overrideFrozenHardcoreHalfHeartBlinking(ResourceLocation hardcoreHalfHeartBlinking){
+        HealthBarVariables.hardcore_frozen_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
     }
 
-    public void overrideFrozenFullHeart(ResourceLocation fullHeart){
-        if (playerVars.resources.frozen_full_heart == fullHeart) return;
-        playerVars.resources.frozen_full_heart = fullHeart;
-        sync();
+    public static void overrideAbsorbingFullHeart(ResourceLocation fullHeart){
+        HealthBarVariables.absorbing_full_heart = fullHeart;
     }
-    public void overrideFrozenFullBlinkingHeart(ResourceLocation fullHeartBlinking){
-        if (playerVars.resources.frozen_full_heart_blinking_damage == fullHeartBlinking) return;
-        playerVars.resources.frozen_full_heart_blinking_damage = fullHeartBlinking;
-        sync();
+    public static void overrideAbsorbingHalfHeart(ResourceLocation halfHeart){
+        HealthBarVariables.absorbing_half_heart = halfHeart;
     }
-    public void overrideFrozenHalfHeart(ResourceLocation halfHeart){
-        if (playerVars.resources.frozen_half_heart == halfHeart) return;
-        playerVars.resources.frozen_half_heart = halfHeart;
-        sync();
+    public static void overrideAbsorbingHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
+        HealthBarVariables.hardcore_absorbing_full_heart = hardcoreFullHeart;
     }
-    public void overrideFrozenHalfBlinkingHeart(ResourceLocation halfHeartBlinking){
-        if (playerVars.resources.frozen_half_heart_blinking_damage == halfHeartBlinking) return;
-        playerVars.resources.frozen_half_heart_blinking_damage = halfHeartBlinking;
-        sync();
-    }
-    public void overrideFrozenHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
-        if (playerVars.resources.hardcore_frozen_full_heart == hardcoreFullHeart) return;
-        playerVars.resources.hardcore_frozen_full_heart = hardcoreFullHeart;
-        sync();
-    }
-    public void overrideFrozenHardcoreFullBlinkingHeart(ResourceLocation hardcoreFullHeartBlinking){
-        if (playerVars.resources.hardcore_frozen_full_heart_blinking_damage == hardcoreFullHeartBlinking) return;
-        playerVars.resources.hardcore_frozen_full_heart_blinking_damage = hardcoreFullHeartBlinking;
-        sync();
-    }
-    public void overrideFrozenHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
-        if (playerVars.resources.hardcore_frozen_half_heart == hardcoreHalfHeart) return;
-        playerVars.resources.hardcore_frozen_half_heart = hardcoreHalfHeart;
-        sync();
-    }
-    public void overrideFrozenHardcoreHalfBlinkingHeart(ResourceLocation hardcoreHalfHeartBlinking){
-        if (playerVars.resources.hardcore_frozen_half_heart_blinking_damage == hardcoreHalfHeartBlinking) return;
-        playerVars.resources.hardcore_frozen_half_heart_blinking_damage = hardcoreHalfHeartBlinking;
-        sync();
+    public static void overrideAbsorbingHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
+        HealthBarVariables.hardcore_absorbing_half_heart = hardcoreHalfHeart;
     }
 
-    public void overrideAbsorbingFullHeart(ResourceLocation fullHeart){
-        if (playerVars.resources.absorbing_full_heart == fullHeart) return;
-        playerVars.resources.absorbing_full_heart = fullHeart;
-        sync();
+
+    public static void overrideStartY(int startY){
+        HealthBarVariables.startY = startY;
     }
-    public void overrideAbsorbingHalfHeart(ResourceLocation halfHeart){
-        if (playerVars.resources.absorbing_half_heart == halfHeart) return;
-        playerVars.resources.absorbing_half_heart = halfHeart;
-        sync();
-    }
-    public void overrideAbsorbingHardcoreFullHeart(ResourceLocation hardcoreFullHeart){
-        if (playerVars.resources.hardcore_absorbing_full_heart == hardcoreFullHeart) return;
-        playerVars.resources.hardcore_absorbing_full_heart = hardcoreFullHeart;
-        sync();
-    }
-    public void overrideAbsorbingHardcoreHalfHeart(ResourceLocation hardcoreHalfHeart){
-        if (playerVars.resources.hardcore_absorbing_half_heart == hardcoreHalfHeart) return;
-        playerVars.resources.hardcore_absorbing_half_heart = hardcoreHalfHeart;
-        sync();
+    public static void overrideStartX(int startX){
+        HealthBarVariables.startX = startX;
     }
 
-    //Reset variables to allow for other values to be used.
-    public void resetAll(){
-        HealthBarVariables.PlayerVariables.ResourceValues resources = playerVars.resources;
-        HealthBarVariables.PlayerVariables.RegenEventValues regen = playerVars.regen;
-        HealthBarVariables.PlayerVariables.GuiValues gui = playerVars.gui;
-        resources.CONTAINER = null;
-        resources.HEARTS = null;
-        resources.POISONED_HEARTS = null;
-        resources.WITHERED_HEARTS = null;
-        resources.FROZEN_HEARTS = null;
-        resources.ABSORBING_HEARTS = null;
-
-        gui.hideEmptyHearts = false;
-        gui.collapseDifferentLifeTypes = false;
-
-        regen.reg_ticksPerHeart = 1;
-        regen.reg_cooldown = 15;
-        regen.reg_yOffset = -2;
-
-        gui.spaceBetweenRowsMax = 10;
-        gui.spaceBetweenRowsMin = 7;
-
-        sync(); //Syncing
-        HealthResourceBuilding.buildTextures(new HealthComponent(serverPlayer));
-    }
-
-    @Deprecated
-    private void reset(){}
 
 }
